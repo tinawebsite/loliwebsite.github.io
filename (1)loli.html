@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Mama</title>
+	<style>
+		.main{
+			color:yellow;
+			background-color:black;
+		}
+	</style>
+</head>
+<body>
+	<h2 class="main">Hi!</h2>
+
+	<img src="cat.jpg" width="200" alt="Ginger Cat">
+
+	<h2 class="main">This is a random text</h2>
+	<h3 class="main" id="change">Change me</h3>
+
+	<input type="text" id="myInput" >
+	<button type="button" id="testButton">Go!</button>
+
+
+	<script>
+		const myButton = document.querySelector('#testButton')
+		const myElement = document.querySelector('h3')
+
+		myButton.addEventListener('click',message)
+
+		function message(){
+			let temp = document.getElementById('myInput')
+			output(temp.value)
+		}
+
+		function output(mess){
+			myElement.innerHTML = mess
+		}
+	</script>
+</body>
+</html>
