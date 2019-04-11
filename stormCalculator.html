@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Storm Distance Calculator</title>
+	<style>
+		.main{
+			text-align:center;
+		}
+	</style>
+</head>
+<body>
+	<h2 class="main">Storm Distance Calculator</h2>
+
+	<h3 id="change"></h3> 
+
+	<input type="number" id="myInput" placeholder="Seconds between thunder and lightning">
+	<button type="button" id="testButton">Calculate</button>
+
+
+	<script>
+		const myButton = document.querySelector('#testButton')
+		const myElement = document.querySelector('h3')
+
+		myButton.addEventListener('click',message)
+
+		function message(){
+			let temp = document.getElementById('myInput')
+			output(temp.value)
+		}
+
+		function output(mess){
+			myElement.innerHTML = (mess * 0.34).toFixed(2) + 'km' 
+		}
+	</script>
+</body>
+</html>
