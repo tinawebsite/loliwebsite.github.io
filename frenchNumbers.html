@@ -6,30 +6,69 @@
 </head>
  
 <body>
-    <div id='output'></div>
+    <div id='frenchOutput'></div>
 
-    <input type="number" id="myInput" >
+    <input type="text" id="myInput" >
     <button type="button" id="testButton">Translate!</button>
 
     <script>
-        var output = document.getElementById('output')
+        var myButton = document.getElementById('testButton')
+        var output = document.getElementById('myInput')
 
-        var nums = {
-            'one':'un',
-            'two':'deux',
-            'three':'trois',
-            'four':'quatre',
-            'five':'cinq',
-            'six':'six',
-            'seven':'sept',
-            'eight':'huit',
-            'nine':'neuf',
-            'ten':'dix',
-        } 
+        var nums = {'one':'un','two':'deux','three':'trois','four':'quatre','five':'cinq','six':'six','seven':'sept','eight':'huit','nine':'neuf','ten':'dix'} 
 
-        var myOutput = JSON.stringify(nums)
+        myButton.addEventListener('click', translate)
 
-        output.innerHTML = myOutput
+        function translate(){
+            let temp = document.getElementById('myInput')
+            var enteredNumber = temp.value
+            
+            if (enteredNumber == 'one'){
+                    var final1 = nums.one
+                    output(final1)
+            }            
+
+            if (enteredNumber == 'two'){
+                    var final2 = nums.two
+                    output(final2)
+            }            
+            if (enteredNumber == 'three'){
+                    var final3 = nums.three
+                    output(final3)
+            }            
+            if (enteredNumber == 'four'){
+                    var final4 = nums.four
+                    output(final4)
+            }            
+            if (enteredNumber == 'five'){
+                    var final5 = nums.five
+                    output(final5)
+            }            
+            if (enteredNumber == 'six'){
+                    var final6 = nums.six
+                    output(final6)
+            }            
+            if (enteredNumber == 'seven'){
+                    var final7 = nums.seven
+                    output(final7)
+            }            
+            if (enteredNumber == 'eight'){
+                    var final8 = nums.eight
+                    output(final8)
+            }            
+            if (enteredNumber == 'nine'){
+                    var final9 = nums.nine
+                    output(final9)
+            }            
+            if (enteredNumber == 'ten'){
+                    var final10 = nums.ten
+                    output(final10)
+            }
+        }
+
+        function output(message){
+            output.innerHTML = message
+        }
     </script>
 </body>
  
