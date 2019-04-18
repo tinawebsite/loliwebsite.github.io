@@ -1,17 +1,27 @@
 <!DOCTYPE html>
-<html>
+<html class="bg">
 <head>
 	<title>Storm Distance Calculator</title>
 	<style>
-		.main{
+		.center{
 			text-align:center;
+			color:yellow;
+            background-color:black;
+
 		}
+		.main{
+            color:yellow;
+            background-color:black;
+        }
+        .bg{
+            background-color:orange;
+        }
 	</style>
 </head>
 <body>
-	<h2 class="main">Storm Distance Calculator</h2>
+	<h2 class="center">Storm Distance Calculator</h2>
 
-	<h3 id="change"></h3> 
+	<h3 id="change" class="main"></h3> 
 
 	<input type="number" id="myInput" placeholder="Seconds between thunder and lightning">
 	<button type="button" id="testButton">Calculate</button>

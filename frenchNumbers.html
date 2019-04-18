@@ -1,73 +1,83 @@
+
 <!DOCTYPE html>
-<html>
- 
+<html class="bg">
 <head>
     <title>JSON</title>
+    <style>
+        .main{
+            color:yellow;
+            background-color:black;
+        }
+        .bg{
+            background-color:orange;
+        }
+    </style>
 </head>
  
 <body>
-    <div id='frenchOutput'></div>
+    <div id='frenchOutput' class="main"></div>
 
     <input type="text" id="myInput" >
     <button type="button" id="testButton">Translate!</button>
 
     <script>
+        //output is not a function
         var myButton = document.getElementById('testButton')
-        var output = document.getElementById('myInput')
-
+        var output = document.getElementById('frenchOutput')
         var nums = {'one':'un','two':'deux','three':'trois','four':'quatre','five':'cinq','six':'six','seven':'sept','eight':'huit','nine':'neuf','ten':'dix'} 
 
         myButton.addEventListener('click', translate)
 
         function translate(){
-            let temp = document.getElementById('myInput')
+            var temp = document.getElementById('myInput')
+            
             var enteredNumber = temp.value
             
             if (enteredNumber == 'one'){
-                    var final1 = nums.one
-                    output(final1)
+                    var final1 = JSON.stringify(nums.one)
+                    funcOutput(final1)
             }            
 
             if (enteredNumber == 'two'){
-                    var final2 = nums.two
-                    output(final2)
+                    var final2 = JSON.stringify(nums.two)
+                    funcOutput(final2)
             }            
             if (enteredNumber == 'three'){
-                    var final3 = nums.three
-                    output(final3)
+                    var final3 = JSON.stringify(nums.three)
+                    funcOutput(final3)
             }            
             if (enteredNumber == 'four'){
-                    var final4 = nums.four
-                    output(final4)
+                    var final4 = JSON.stringify(nums.four)
+                    funcOutput(final4)
             }            
             if (enteredNumber == 'five'){
-                    var final5 = nums.five
-                    output(final5)
+                    var final5 = JSON.stringify(nums.five)
+                    funcOutput(final5)
             }            
             if (enteredNumber == 'six'){
-                    var final6 = nums.six
-                    output(final6)
+                    var final6 = JSON.stringify(nums.six)
+                    funcOutput(final6)
             }            
             if (enteredNumber == 'seven'){
-                    var final7 = nums.seven
-                    output(final7)
+                    var final7 = JSON.stringify(nums.seven)
+                    funcOutput(final7)
             }            
             if (enteredNumber == 'eight'){
-                    var final8 = nums.eight
-                    output(final8)
+                    var final8 = JSON.stringify(nums.eight)
+                    funcOutput(final8)
             }            
             if (enteredNumber == 'nine'){
-                    var final9 = nums.nine
-                    output(final9)
+                    var final9 = JSON.stringify(nums.nine)
+                    funcOutput(final9)
             }            
             if (enteredNumber == 'ten'){
-                    var final10 = nums.ten
-                    output(final10)
+                    var final10 = JSON.stringify(nums.ten)
+                    funcOutput(final10)
             }
         }
 
-        function output(message){
-            output.innerHTML = message
+        function funcOutput(message){
+            output.innerHTML = JSON.parse(message)
         }
     </script>
 </body>
