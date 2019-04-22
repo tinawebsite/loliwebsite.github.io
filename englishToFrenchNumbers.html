@@ -1,0 +1,74 @@
+
+<!DOCTYPE html>
+<html class="bg">
+<head>
+    <title>JSON</title>
+    <style>
+        .main{
+            color:yellow;
+            background-color:black;
+        }
+        .bg{
+            background-color:orange;
+        }
+    </style>
+</head>
+ 
+<body>
+    <div id='frenchOutput' class="main"></div>
+
+    <input type="text" id="myInput" >
+    <button type="button" id="testButton">Translate!</button>
+
+    <script>
+        //output is not a function
+        var myButton = document.getElementById('testButton')
+        var output = document.getElementById('frenchOutput')
+        var nums = {'one':'un','two':'deux','three':'trois','four':'quatre','five':'cinq','six':'six','seven':'sept','eight':'huit','nine':'neuf','ten':'dix'} 
+
+        myButton.addEventListener('click', translate)
+
+        function translate(){
+            var temp = document.getElementById('myInput')
+            var enteredNumber = temp.value
+            
+            if (enteredNumber == 'one'){
+                    var final1 = JSON.stringify(nums.one)
+                    funcOutput(final1)}      
+            if (enteredNumber == 'two'){
+                    var final2 = JSON.stringify(nums.two)
+                    funcOutput(final2)}            
+            if (enteredNumber == 'three'){
+                    var final3 = JSON.stringify(nums.three)
+                    funcOutput(final3)}            
+            if (enteredNumber == 'four'){
+                    var final4 = JSON.stringify(nums.four)
+                    funcOutput(final4)}            
+            if (enteredNumber == 'five'){
+                    var final5 = JSON.stringify(nums.five)
+                    funcOutput(final5)}            
+            if (enteredNumber == 'six'){
+                    var final6 = JSON.stringify(nums.six)
+                    funcOutput(final6)}            
+            if (enteredNumber == 'seven'){
+                    var final7 = JSON.stringify(nums.seven)
+                    funcOutput(final7)}            
+            if (enteredNumber == 'eight'){
+                    var final8 = JSON.stringify(nums.eight)
+                    funcOutput(final8)}            
+            if (enteredNumber == 'nine'){
+                    var final9 = JSON.stringify(nums.nine)
+                    funcOutput(final9)             
+            if (enteredNumber == 'ten'){
+                    var final10 = JSON.stringify(nums.ten)
+                    funcOutput(final10)}
+        }
+
+        function funcOutput(message){
+            output.innerHTML = JSON.parse(message)
+        }
+    </script>
+</body>
+ 
+</html>
+Math.floor((Math.random() * 10) + 1);
