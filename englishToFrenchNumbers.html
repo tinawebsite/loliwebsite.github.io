@@ -21,7 +21,6 @@
     <button type="button" id="testButton">Translate!</button>
 
     <script>
-        //output is not a function
         var myButton = document.getElementById('testButton')
         var output = document.getElementById('frenchOutput')
         var nums = {'one':'un','two':'deux','three':'trois','four':'quatre','five':'cinq','six':'six','seven':'sept','eight':'huit','nine':'neuf','ten':'dix'} 
@@ -58,7 +57,7 @@
                     funcOutput(final8)}            
             if (enteredNumber == 'nine'){
                     var final9 = JSON.stringify(nums.nine)
-                    funcOutput(final9)             
+                    funcOutput(final9)}             
             if (enteredNumber == 'ten'){
                     var final10 = JSON.stringify(nums.ten)
                     funcOutput(final10)}
@@ -71,4 +70,3 @@
 </body>
  
 </html>
-Math.floor((Math.random() * 10) + 1);
