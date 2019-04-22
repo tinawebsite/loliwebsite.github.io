@@ -92,8 +92,6 @@
 
         function other(mess){
             var enteredAnswer = mess 
-            console.log(enteredAnswer)
-            console.log(frenchAnswer)
             if (frenchAnswer == enteredAnswer) {
                 console.log('yes')
                 document.getElementById("colorChange").style.backgroundColor = "green"
@@ -105,11 +103,20 @@
                 checkedOutput.innerHTML = 'TRY AGAIN'}}
 
         function start(){
+            var nums = {'one':'un','two':'deux','three':'trois','four':'quatre','five':'cinq','six':'six','seven':'sept','eight':'huit','nine':'neuf','ten':'dix'} 
+            var myEnglish = document.getElementById('englishWord')
+            var checkedOutput = document.getElementById('checkOutput')
+            var frenchAnswer = ''
+            var enteredAnswer = ''
+            var englishNumber = Math.floor((Math.random() * 10) + 1)
+            var engWord = ''
+            var temp = ''
+
             document.getElementById("colorChange").style.backgroundColor = "orange"
             checkedOutput.innerHTML = ''
             myInputSelect.value = ""
             myInputSelect.focus()
-            var englishNumber = Math.floor((Math.random() * 10) + 1)
+
             if (englishNumber == 1){
                 var frenchAnswer = nums.one
                 var engWord = 'one'
