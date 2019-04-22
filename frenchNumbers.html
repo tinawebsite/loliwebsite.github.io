@@ -16,18 +16,21 @@
 <body>
     <div id='englishWord' class="main"></div>
 
-    <input type="text" id="myInput">
-    <button type="button" id="testButton">Check</button>
-
+    <input type="text" id="myInput" onkeydown = "if (event.keyCode == 13)
+                        document.getElementById('testButton').click()">
+    <button type="button" id="testButton" onclick="check()">Check</button>
+    <button type="button" id="newWord" onclick="start()">New Word</button>
+    
     <div id='checkOutput'></div>
     <script>
         var nums = {'one':'un','two':'deux','three':'trois','four':'quatre','five':'cinq','six':'six','seven':'sept','eight':'huit','nine':'neuf','ten':'dix'} 
-        var myButton = document.getElementById('testButton')
         var myEnglish = document.getElementById('englishWord')
-        var englishNumber = Math.floor((Math.random() * 10) + 1)
+        var myInputSelect = document.getElementById('myInput')
         var checkedOutput = document.getElementById('checkOutput')
+        var englishNumber = Math.floor((Math.random() * 10) + 1)
         var frenchAnswer
         var enteredAnswer
+        myInputSelect.focus()
         
         if (englishNumber == 1){
             var frenchAnswer = nums.one
@@ -78,12 +81,10 @@
             var frenchAnswer = nums.ten
             var engWord = 'ten'
             englishOutput(engWord)}
-                
+                    
 
         function englishOutput(message){
             myEnglish.innerHTML = message}
- 
-        myButton.addEventListener('click', check)
 
         function check(){
             var temp = document.getElementById('myInput')
@@ -91,13 +92,75 @@
 
         function other(mess){
             var enteredAnswer = mess 
+            console.log(enteredAnswer)
+            console.log(frenchAnswer)
             if (frenchAnswer == enteredAnswer) {
-                document.getElementById("colorChange").style.backgroundColor = "green";
-                checkedOutput.innerHTML = 'YOU ARE CORRECT'} 
+                console.log('yes')
+                document.getElementById("colorChange").style.backgroundColor = "green"
+                checkedOutput.innerHTML = 'YOU ARE CORRECT'
+                   } 
             else {
-                document.getElementById("colorChange").style.backgroundColor = "red";
+                console.log('no')
+                document.getElementById("colorChange").style.backgroundColor = "red"
                 checkedOutput.innerHTML = 'TRY AGAIN'}}
 
+        function start(){
+            document.getElementById("colorChange").style.backgroundColor = "orange"
+            checkedOutput.innerHTML = ''
+            myInputSelect.value = ""
+            myInputSelect.focus()
+            var englishNumber = Math.floor((Math.random() * 10) + 1)
+            if (englishNumber == 1){
+                var frenchAnswer = nums.one
+                var engWord = 'one'
+                englishOutput(engWord)}
+
+            if (englishNumber == 2){
+                var frenchAnswer = nums.two
+                var engWord = 'two'
+                englishOutput(engWord)}
+
+            if (englishNumber == 3){
+                var frenchAnswer = nums.three
+                var engWord = 'three'
+                englishOutput(engWord)}
+
+            if (englishNumber == 4){
+                var frenchAnswer = nums.four
+                var engWord = 'four'
+                englishOutput(engWord)}
+
+            if (englishNumber == 5){
+                var frenchAnswer = nums.five
+                var engWord = 'five'
+                englishOutput(engWord)}
+
+            if (englishNumber == 6){
+                var frenchAnswer = nums.six
+                var engWord = 'six'
+                englishOutput(engWord)}
+
+            if (englishNumber == 7){
+                var frenchAnswer = nums.seven
+                var engWord = 'seven'
+                englishOutput(engWord)}
+
+            if (englishNumber == 8){
+                var frenchAnswer = nums.eight
+                var engWord = 'eight'
+                englishOutput(engWord)}
+
+            if (englishNumber == 9){
+                var frenchAnswer = nums.nine
+                var engWord = 'nine'
+                englishOutput(engWord)}
+
+            if (englishNumber == 10){
+                var frenchAnswer = nums.ten
+                var engWord = 'ten'
+                englishOutput(engWord)}
+        }
+    
     </script>
 </body>
  
