@@ -21,17 +21,27 @@
     <button type="button" id="newWord" onclick="start()">New Word</button>
     
     <div id='checkOutput'></div>
+    <div id='correctCounter'></div>
+    <div id='incorrectCounter'></div>
+    <div id='percentageCounter'></div>
     <script>
         var nums = {'one':'un','two':'deux','three':'trois','four':'quatre','five':'cinq','six':'six','seven':'sept','eight':'huit','nine':'neuf','ten':'dix'} 
         var myEnglish = document.getElementById('englishWord')
         var myInputSelect = document.getElementById('myInput')
+        var right = document.getElementById('correctCounter')
+        var wrong = document.getElementById('incorrectCounter')
+        var percent = document.getElementById('percentageCounter')
         var checkedOutput = document.getElementById('checkOutput')
         var englishNumber = Math.floor((Math.random() * 10) + 1)
+        var rightCount = 0
+        var wrongCount = 0
+        var rightMessage
+        var wrongMessage
+        var percentMessaget
         var engWord
         var frenchAnswer
         var enteredAnswer
-        var temp 
-
+        var temp
         document.getElementById("colorChange").style.backgroundColor = "orange"
         checkedOutput.innerHTML = ''
         myInputSelect.value = ""
@@ -88,42 +98,35 @@
             englishOutput(engWord)}
 
         function englishOutput(message){
-            console.log(frenchAnswer)
             myEnglish.innerHTML = message}
 
         function check(){
             var temp = document.getElementById('myInput')
-            other(temp.value)
-            console.log('check')}
+            other(temp.value)}
 
         function other(mess){
-            console.log('other')
             var enteredAnswer = mess 
             if (frenchAnswer == enteredAnswer) {
                 document.getElementById("colorChange").style.backgroundColor = "green"
-                checkedOutput.innerHTML = 'YOU ARE CORRECT'} else {
+                checkedOutput.innerHTML = 'YOU ARE CORRECT'
+                rightCount ++
+                console.log(rightCount)
+                var rightMessage = 'Correct: ' + rightCount
+                correctCounter.innerHTML = rightMessage} 
+            else {
                 document.getElementById("colorChange").style.backgroundColor = "red"
-                checkedOutput.innerHTML = 'TRY AGAIN'}}
-        
+                checkedOutput.innerHTML = 'TRY AGAIN'
+                wrongCount ++
+                var wrongMessage = 'Incorrect: ' + wrongCount
+                incorrectCounter.innerHTML = wrongMessage}
 
-
-
-
-
-
+            var percentMessage = ((rightCount / (wrongCount + rightCount))*100).toFixed(2) + '%'
+            percentageCounter.innerHTML = percentMessage} 
 
 
 
         function start(){
-            var nums = {'one':'un','two':'deux','three':'trois','four':'quatre','five':'cinq','six':'six','seven':'sept','eight':'huit','nine':'neuf','ten':'dix'} 
-            var myEnglish = document.getElementById('englishWord')
-            var myInputSelect = document.getElementById('myInput')
-            var checkedOutput = document.getElementById('checkOutput')
             var englishNumber = Math.floor((Math.random() * 10) + 1)
-            var engWord
-            var frenchAnswer
-            var enteredAnswer
-            var temp 
             var myButton = testButton.addEventListener('click', check1)
 
             document.getElementById("colorChange").style.backgroundColor = "orange"
@@ -189,13 +192,24 @@
                 other1(temp.value)}
 
             function other1(mess){
-                console.log(mess)
-                console.log(frenchAnswer)
-                if (frenchAnswer == mess){
+                var enteredAnswer = mess 
+                if (frenchAnswer == enteredAnswer) {
                     document.getElementById("colorChange").style.backgroundColor = "green"
-                    checkedOutput.innerHTML = 'YOU ARE CORRECT'} else {
+                    checkedOutput.innerHTML = 'YOU ARE CORRECT'
+                    rightCount ++
+                    console.log(rightCount)
+                    var rightMessage = 'Correct: ' + rightCount
+                    correctCounter.innerHTML = rightMessage} 
+                else {
                     document.getElementById("colorChange").style.backgroundColor = "red"
-                    checkedOutput.innerHTML = 'TRY AGAIN'}}
+                    checkedOutput.innerHTML = 'TRY AGAIN'
+                    wrongCount ++
+                    var wrongMessage = 'Incorrect: ' + wrongCount
+                    incorrectCounter.innerHTML = wrongMessage}
+
+                var percentMessage = ((rightCount / (wrongCount + rightCount))*100).toFixed(2) + '%'
+                percentageCounter.innerHTML = percentMessage} 
+
         }
   
     </script>
