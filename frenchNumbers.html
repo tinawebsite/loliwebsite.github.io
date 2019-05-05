@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="bg" id="colorChange">
+<html class='bg' id='colorChange'>
 <head>
     <title>JSON</title>
     <style>
@@ -14,30 +14,31 @@
 </head>
  
 <body>
-    <div id='englishWord' class="main"></div>
+    <header>
+        <a href="index.html" target="_blank">Home</a>
+    </header>
+    
+    <div id='englishWord' class='main'></div>
 
-    <input type="text" id="myInput" onkeydown = "if (event.keyCode == 13)document.getElementById('testButton').click()">
-    <button type="button" id="testButton" onclick="check()">Check</button>
-    <button type="button" id="newWord" onclick="start()">New Word</button>
+    <input type='text' id='myInput' onkeydown = "if (event.keyCode == 13)document.getElementById('testButton').click()">
+    <button type='button' id='testButton'>Check</button>
+    <button type='button' id='newWord' onclick='start()'>New Word</button>
     
     <div id='checkOutput'></div>
     <div id='correctCounter'></div>
     <div id='incorrectCounter'></div>
-    <div id='percentageCounter'></div>
     <script>
         var nums = {'one':'un','two':'deux','three':'trois','four':'quatre','five':'cinq','six':'six','seven':'sept','eight':'huit','nine':'neuf','ten':'dix'} 
         var myEnglish = document.getElementById('englishWord')
         var myInputSelect = document.getElementById('myInput')
         var right = document.getElementById('correctCounter')
         var wrong = document.getElementById('incorrectCounter')
-        var percent = document.getElementById('percentageCounter')
         var checkedOutput = document.getElementById('checkOutput')
         var englishNumber = Math.floor((Math.random() * 10) + 1)
         var rightCount = 0
         var wrongCount = 0
         var rightMessage
         var wrongMessage
-        var percentMessaget
         var engWord
         var frenchAnswer
         var enteredAnswer
@@ -46,6 +47,8 @@
         checkedOutput.innerHTML = ''
         myInputSelect.value = ""
         myInputSelect.focus()
+
+        var myButton = testButton.addEventListener('click', check)
 
         if (englishNumber == 1){
             var frenchAnswer = nums.one
@@ -105,33 +108,38 @@
             other(temp.value)}
 
         function other(mess){
-            var enteredAnswer = mess 
-            if (frenchAnswer == enteredAnswer) {
-                document.getElementById("colorChange").style.backgroundColor = "green"
-                checkedOutput.innerHTML = 'YOU ARE CORRECT'
-                rightCount ++
-                console.log(rightCount)
-                var rightMessage = 'Correct: ' + rightCount
-                correctCounter.innerHTML = rightMessage} 
-            else {
-                document.getElementById("colorChange").style.backgroundColor = "red"
-                checkedOutput.innerHTML = 'TRY AGAIN'
-                wrongCount ++
-                var wrongMessage = 'Incorrect: ' + wrongCount
-                incorrectCounter.innerHTML = wrongMessage}
+            if (frenchAnswer == mess){
+                correct()
+            } 
+            if (frenchAnswer =! mess){
+                incorrect()
+            }}
 
-            var percentMessage = ((rightCount / (wrongCount + rightCount))*100).toFixed(2) + '%'
-            percentageCounter.innerHTML = percentMessage} 
+        function correct(){
+            document.getElementById('colorChange').style.backgroundColor = 'green'
+            checkedOutput.innerHTML = 'YOU ARE CORRECT'
+            rightCount ++
+            var rightMessage = 'Correct: ' + rightCount
+            correctCounter.innerHTML = rightMessage}
+
+        function incorrect(){
+            incorrectCounter.innerHTML = ' '
+            document.getElementById('colorChange').style.backgroundColor = 'red'
+            checkedOutput.innerHTML = 'TRY AGAIN'
+            wrongCount ++
+            var wrongMessage = 'Incorrect: ' + wrongCount
+            incorrectCounter.innerHTML = wrongMessage}
 
 
 
         function start(){
+            var myButton = testButton.removeEventListener('click', check)
             var englishNumber = Math.floor((Math.random() * 10) + 1)
             var myButton = testButton.addEventListener('click', check1)
 
-            document.getElementById("colorChange").style.backgroundColor = "orange"
+            document.getElementById('colorChange').style.backgroundColor = 'orange'
             checkedOutput.innerHTML = ''
-            myInputSelect.value = ""
+            myInputSelect.value = ''
             myInputSelect.focus()
 
             if (englishNumber == 1){
@@ -192,23 +200,28 @@
                 other1(temp.value)}
 
             function other1(mess){
-                var enteredAnswer = mess 
-                if (frenchAnswer == enteredAnswer) {
-                    document.getElementById("colorChange").style.backgroundColor = "green"
-                    checkedOutput.innerHTML = 'YOU ARE CORRECT'
-                    rightCount ++
-                    console.log(rightCount)
-                    var rightMessage = 'Correct: ' + rightCount
-                    correctCounter.innerHTML = rightMessage} 
-                else {
-                    document.getElementById("colorChange").style.backgroundColor = "red"
-                    checkedOutput.innerHTML = 'TRY AGAIN'
-                    wrongCount ++
-                    var wrongMessage = 'Incorrect: ' + wrongCount
-                    incorrectCounter.innerHTML = wrongMessage}
+                if (frenchAnswer == mess) {
+                    correct1()
+                } 
+                if (frenchAnswer =! mess){
+                    incorrect1()
+                }}
 
-                var percentMessage = ((rightCount / (wrongCount + rightCount))*100).toFixed(2) + '%'
-                percentageCounter.innerHTML = percentMessage} 
+            function correct1(){
+                document.getElementById('colorChange').style.backgroundColor = 'green'
+                checkedOutput.innerHTML = 'YOU ARE CORRECT'
+                rightCount ++
+                var rightMessage = 'Correct: ' + rightCount
+                correctCounter.innerHTML = rightMessage}
+
+            function incorrect1 (){
+                incorrectCounter.innerHTML = ' '
+                document.getElementById('colorChange').style.backgroundColor = 'red'
+                checkedOutput.innerHTML = 'TRY AGAIN'
+                wrongCount ++
+                var wrongMessage = 'Incorrect: ' + wrongCount
+                incorrectCounter.innerHTML = wrongMessage
+            }
 
         }
   

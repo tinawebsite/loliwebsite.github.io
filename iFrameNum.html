@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html class="bg">
+<head>
+	<title>French</title>
+	<style>
+		.bg{
+			background-color:#ed40f7;
+		}
+	</style>
+</head>
+<body>
+	<h2 style="text-align:center;"><u>Numbers</u></h2>
+
+	<br>
+	<br>
+
+	<div id="englishWord"></div>
+
+	<br>
+
+	<input type="text" id="myInput">
+
+	<br>
+
+	<button id="checkButton">CHECK!</button>
+
+	<br>
+
+	<div id="resultsLabel"></div>
+
+	<script>
+		var englishWord
+		var frenchAnswer
+		var translateMe = document.getElementById('englishWord') 
+		var numbers = {'one':'un', 'two':'deux', 'three':'trois'}
+		document.getElementById('checkButton').addEventListener('click', check)
+
+		start()
+		
+		function start(){
+			var randomNumber = Math.floor((Math.random() * 3) + 1)
+			if (randomNumber == 1){
+				var frenchAnswer = numbers.one
+				localStorage.setItem('frenchAnswer',frenchAnswer)
+            	var englishWord = 'one'
+            	englishOutput(englishWord)}
+
+			if (randomNumber == 2){
+				var frenchAnswer = numbers.two
+				localStorage.setItem('frenchAnswer',frenchAnswer)
+            	var englishWord = 'two'
+            	englishOutput(englishWord)
+			}
+			if (randomNumber == 3){
+				var frenchAnswer = numbers.three
+				localStorage.setItem('frenchAnswer',frenchAnswer)
+            	var englishWord = 'three'
+            	englishOutput(englishWord)
+			}}
+			
+			
+		function englishOutput(myOutput){
+			translateMe.innerHTML = myOutput
+		}
+
+		function check(){
+            var temp = document.getElementById('myInput')
+            other(temp.value)
+		}
+		function other(myAns){
+			var correctAnswer = localStorage.getItem('frenchAnswer')
+			var myOutput = document.getElementById('resultsLabel')
+			if (myAns == correctAnswer){
+				myOutput.innerHTML = 'YOU ARE CORRECT!'}
+				else{
+				myOutput.innerHTML = 'TRY AGAIN'}
+		}
+	</script>
+</body>
+</html>
+
+
