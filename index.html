@@ -1,16 +1,52 @@
 <!DOCTYPE html>
-<html>
-<head>
-	<title>Mama</title>
+<html style="background-color:orange;">
+	<head>
+		<title>Mama</title>
+	</head>
+	<style>
+		.show{
+			display:block;
+		}
+		.hide{
+			display:none;
+		}
+		.main{
+			background-color:black;
+			color:yellow;
+		}
+	</style>
+	<body>
+		<header class='blank'>
+			<a href="stormCalculator.html" target="_blank">Storm Calculator</a> | 
+			<a href="frenchNumbers.html" target="_blank">Interactive French Numbers</a> | 
+			<a href="englishToFrenchNumbers.html" target="_blank">French Numbers</a> | 
+			<a href="one_to_three_iFrames.html" target="_blank">French Numbers and Weekdays</a> | 
+			<a href="input_to_text.html" target="_blank">Input to Text</a>
+		</header>
+		<hr>
+		<h1 style="text-align:center;" class="main"><u>Loli</u></h1>
+		<br>
+		<hr>
+		<br>
+		<button id="myButton" class='main'>Random!</button>
+		<br>
+		<br>
+		<iframe src="robin_iFrame.html" width="1000" height="300" class="hide" id="robin"></iframe>
+		<iframe src="mama_iFrame.html" width="1000" height="300" class="hide" id="info"></iframe>
 
-</head>
-<body>
-<header>
-	<a href="stormCalculator.html" target="_blank">Storm Calculator</a> | 
-	<a href="frenchNumbers.html" target="_blank">Interactive French Numbers</a> | 
-	<a href="englishToFrenchNumbers.html" target="_blank">French Numbers</a> | 
-	<a href="one_to_three_iFrames.html" target="_blank">French Numbers and Weekdays</a> | 
-	<a href="input_to_text.html" target="_blank">Input to Text</a>
-</header>
-</body>
+		<script>
+			document.getElementById('myButton').addEventListener('click', click)
+
+			function click(){
+				var num = Math.floor((Math.random() * 2) + 1)
+				if(num == 1){
+					document.getElementById('robin').className = 'show'
+					document.getElementById('info').className = 'hide'
+				}else if(num == 2){
+					document.getElementById('robin').className = 'hide'
+					document.getElementById('info').className = 'show'
+				}
+			}
+		</script>
+	</body>
 </html>
