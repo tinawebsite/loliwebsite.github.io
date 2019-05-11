@@ -1,52 +1,57 @@
 <!DOCTYPE html>
-<html style="background-color:#c8acf7;">
-	<head>
-		<title>Mama</title>
-	</head>
-	<style>
-		.show{
-			display:block;
-		}
-		.hide{
-			display:none;
-		}
-		.main{
-			background-color:black;
-			color:#e1a8ff;
-		}
-	</style>
-	<body>
-		<header class='blank'>
-			<a href="stormCalculator.html" target="_blank">Storm Calculator</a> | 
-			<a href="frenchNumbers.html" target="_blank">Interactive French Numbers</a> | 
-			<a href="englishToFrenchNumbers.html" target="_blank">French Numbers</a> | 
-			<a href="one_to_three_iFrames.html" target="_blank">French Numbers and Weekdays</a> | 
-			<a href="input_to_text.html" target="_blank">Input to Text</a>
-		</header>
-		<hr>
-		<h1 style="text-align:center;" class="main"><u>Loli</u></h1>
-		<br>
-		<hr>
-		<br>
-		<button id="myButton" class='main'>Random!</button>
-		<br>
-		<br>
-		<iframe src="robin_iFrame.html" width="1000" height="300" class="hide" id="robin"></iframe>
-		<iframe src="mama_iFrame.html" width="1000" height="300" class="hide" id="info"></iframe>
+<html>
+<head>
+</head>
+<body>
 
-		<script>
-			document.getElementById('myButton').addEventListener('click', click)
+<div class="slideshow-container">
 
-			function click(){
-				var num = Math.floor((Math.random() * 2) + 1)
-				if(num == 1){
-					document.getElementById('robin').className = 'show'
-					document.getElementById('info').className = 'hide'
-				}else if(num == 2){
-					document.getElementById('robin').className = 'hide'
-					document.getElementById('info').className = 'show'
-				}
-			}
-		</script>
-	</body>
-</html>
+<div class="mySlides fade">  
+  <iframe src="snowdrop_iFrame.html" width="1000" height="1000"></iframe>
+</div>
+
+<div class="mySlides fade">  
+  <iframe src="daylily_iFrame.html" width="1000" height="1000"></iframe>
+</div>
+
+<div class="mySlides fade">  
+  <iframe src="mama_iFrame.html" width="1000" height="1000"></iframe>
+</div>
+
+<div class="mySlides fade">  
+  <iframe src="robin_iFrame.html" width="1000" height="1000"></iframe>
+</div>
+
+</div>
+<br>
+
+<div style="text-align:center">
+  <span class="dot"></span> 
+  <span class="dot"></span> 
+  <span class="dot"></span> 
+</div>
+
+<script>
+var slideIndex = 0;
+showSlides();
+
+function showSlides() {
+  var i;
+  var slides = document.getElementsByClassName("mySlides");
+  var dots = document.getElementsByClassName("dot");
+  for (i = 0; i < slides.length; i++) {
+    slides[i].style.display = "none";  
+  }
+  slideIndex++;
+  if (slideIndex > slides.length) {slideIndex = 1}    
+  for (i = 0; i < dots.length; i++) {
+    dots[i].className = dots[i].className.replace(" active", "");
+  }
+  slides[slideIndex-1].style.display = "block";  
+  dots[slideIndex-1].className += " active";
+  setTimeout(showSlides, 1000); // Change image every 1 second
+}
+</script>
+
+</body>
+</html> 
