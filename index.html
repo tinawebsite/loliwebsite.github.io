@@ -18,30 +18,38 @@
 </head>
 
 <body>
+	<header class='blank'>
+		<a href="stormCalculator.html" target="_blank">Storm Calculator</a> | 
+		<a href="frenchNumbers.html" target="_blank">Interactive French Numbers</a> | 
+		<a href="englishToFrenchNumbers.html" target="_blank">French Numbers</a> | 
+		<a href="one_to_three_iFrames.html" target="_blank">French Numbers and Weekdays</a> | 
+		<a href="input_to_text.html" target="_blank">Input to Text</a>
+	</header>
+	<br>
+	<br>
+	<div>
+	  	<a href="daylily_iFrame.html" class="mySlides" target="_blank"><img src="https://gpnmag.com/wp-content/uploads/Hem-Stell-de-Oro-landscape.jpg" height = "500" align="middle"><h3 class="text">Daylilies</h3></a>  
+		<a href="robin_iFrame.html" class="mySlides" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/f/f3/Erithacus_rubecula_with_cocked_head.jpg" height = "500" align="middle"><h3 class="text">Robins</h3></a>  
+	 	<a href="snowdrop_iFrame.html" class="mySlides" target="_blank"><img src="https://images.wagwalkingweb.com/media/articles/dog/snowdrop-poisoning/snowdrop-poisoning.jpg" height = "500" align="middle"><h3 class="text">Snowdrops</h3></a>
+		<a href="mama_iFrame.html" class="mySlides" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/Cosmos_bipinnatus_pink%2C_Burdwan%2C_West_Bengal%2C_India_10_01_2013.jpg/1200px-Cosmos_bipinnatus_pink%2C_Burdwan%2C_West_Bengal%2C_India_10_01_2013.jpg" height = "500" align="middle"><h3 class="text">Loli</h3></a>  
 
-<div>
-  	<a href="daylily_iFrame.html" class="mySlides" target="_blank"><img src="https://gpnmag.com/wp-content/uploads/Hem-Stell-de-Oro-landscape.jpg" height = "500" align="middle"><h3 class="text">Daylilies</h3></a>  
-	<a href="robin_iFrame.html" class="mySlides" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/f/f3/Erithacus_rubecula_with_cocked_head.jpg" height = "500" align="middle"><h3 class="text">Robins</h3></a>  
- 	<a href="snowdrop_iFrame.html" class="mySlides" target="_blank"><img src="https://images.wagwalkingweb.com/media/articles/dog/snowdrop-poisoning/snowdrop-poisoning.jpg" height = "500" align="middle"><h3 class="text">Snowdrops</h3></a>
-	<a href="mama_iFrame.html" class="mySlides" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/Cosmos_bipinnatus_pink%2C_Burdwan%2C_West_Bengal%2C_India_10_01_2013.jpg/1200px-Cosmos_bipinnatus_pink%2C_Burdwan%2C_West_Bengal%2C_India_10_01_2013.jpg" height = "500" align="middle"><h3 class="text">Loli</h3></a>  
+	</div>
 
-</div>
+	<script>
+	var myIndex = 0;
+	carousel();
 
-<script>
-var myIndex = 0;
-carousel();
-
-function carousel() {
-  var i;
-  var x = document.getElementsByClassName("mySlides");
-  for (i = 0; i < x.length; i++) {
-    x[i].style.display = "none";  
-  }
-  myIndex++;
-  if (myIndex > x.length) {myIndex = 1}    
-  x[myIndex-1].style.display = "block";  
-  setTimeout(carousel, 2000); // Change image every 2 seconds
-}
+	function carousel() {
+	  var i;
+	  var x = document.getElementsByClassName("mySlides");
+	  for (i = 0; i < x.length; i++) {
+	    x[i].style.display = "none";  
+	  }
+	  myIndex++;
+	  if (myIndex > x.length) {myIndex = 1}    
+	  x[myIndex-1].style.display = "block";  
+	  setTimeout(carousel, 2000); // Change image every 2 seconds
+	}
 </script>
 
 </body>
