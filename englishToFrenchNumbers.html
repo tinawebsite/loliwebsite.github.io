@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html class="bg">
 <head>
@@ -23,7 +22,7 @@
     <div id='frenchOutput' class="main"></div>
 
     <input type="text" id="myInput" >
-    <button type="button" id="testButton">Translate!</button>
+    <button type="button" id="testButton" style="border-radius: 25px">Translate!</button>
 
     <script>
         var myButton = document.getElementById('testButton')
@@ -71,6 +70,7 @@
         function funcOutput(message){
             output.innerHTML = JSON.parse(message)
         }
+        document.getElementById('myInput').focus()
     </script>
 </body>
  
