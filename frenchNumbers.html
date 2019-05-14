@@ -27,13 +27,11 @@
     
     <div id='checkOutput'></div>
     <div id='correctCounter'></div>
-    <div id='incorrectCounter'></div>
     <script>
         var nums = {'one':'un','two':'deux','three':'trois','four':'quatre','five':'cinq','six':'six','seven':'sept','eight':'huit','nine':'neuf','ten':'dix'} 
         var myEnglish = document.getElementById('englishWord')
         var myInputSelect = document.getElementById('myInput')
         var right = document.getElementById('correctCounter')
-        var wrong = document.getElementById('incorrectCounter')
         var checkedOutput = document.getElementById('checkOutput')
         var englishNumber = Math.floor((Math.random() * 10) + 1)
         var rightCount = 0
@@ -111,25 +109,21 @@
         function other(mess){
             if (frenchAnswer == mess){
                 correct()
+                function correct(){
+                    document.getElementById('colorChange').style.backgroundColor = 'green'
+                    checkedOutput.innerHTML = 'YOU ARE CORRECT'
+                    rightCount ++
+                    var rightMessage = 'Correct: ' + rightCount
+                    correctCounter.innerHTML = rightMessage}
             } 
             if (frenchAnswer =! mess){
                 incorrect()
+                function incorrect(){
+                    document.getElementById('colorChange').style.backgroundColor = 'red'
+                    checkedOutput.innerHTML = 'TRY AGAIN'}
             }}
 
-        function correct(){
-            document.getElementById('colorChange').style.backgroundColor = 'green'
-            checkedOutput.innerHTML = 'YOU ARE CORRECT'
-            rightCount ++
-            var rightMessage = 'Correct: ' + rightCount
-            correctCounter.innerHTML = rightMessage}
 
-        function incorrect(){
-            incorrectCounter.innerHTML = ' '
-            document.getElementById('colorChange').style.backgroundColor = 'red'
-            checkedOutput.innerHTML = 'TRY AGAIN'
-            wrongCount ++
-            var wrongMessage = 'Incorrect: ' + wrongCount
-            incorrectCounter.innerHTML = wrongMessage}
 
 
 
@@ -203,26 +197,20 @@
             function other1(mess){
                 if (frenchAnswer == mess) {
                     correct1()
-                } 
-                if (frenchAnswer =! mess){
+                    function correct1(){
+                        document.getElementById('colorChange').style.backgroundColor = 'green'
+                        checkedOutput.innerHTML = 'YOU ARE CORRECT'
+                        rightCount ++
+                        var rightMessage = 'Correct: ' + rightCount
+                        correctCounter.innerHTML = rightMessage}
+                } else{
                     incorrect1()
+                    function incorrect1 (){
+                        document.getElementById('colorChange').style.backgroundColor = 'red'
+                        checkedOutput.innerHTML = 'TRY AGAIN'}
                 }}
 
-            function correct1(){
-                document.getElementById('colorChange').style.backgroundColor = 'green'
-                checkedOutput.innerHTML = 'YOU ARE CORRECT'
-                rightCount ++
-                var rightMessage = 'Correct: ' + rightCount
-                correctCounter.innerHTML = rightMessage}
 
-            function incorrect1 (){
-                incorrectCounter.innerHTML = ' '
-                document.getElementById('colorChange').style.backgroundColor = 'red'
-                checkedOutput.innerHTML = 'TRY AGAIN'
-                wrongCount ++
-                var wrongMessage = 'Incorrect: ' + wrongCount
-                incorrectCounter.innerHTML = wrongMessage
-            }
 
         }
   

@@ -24,7 +24,7 @@
 	<h2 class="main">This is a random text</h2>
 	<h3 class="main" id="change">Change me</h3>
 
-	<input type="text" id="myInput" >
+	<input type="text" id="myInput" onkeydown = "if (event.keyCode == 13)document.getElementById('testButton').click()">
 	<button type="button" id="testButton" style="border-radius: 25px">Go!</button>
 
 
