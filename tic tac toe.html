@@ -20,16 +20,30 @@
 	<button id="sq7" style="width:150px; height:150px;background-color:#ffffff"></button>
 	<button id="sq8" style="width:150px; height:150px;background-color:#ffffff"></button>
 	<button id="sq9" style="width:150px; height:150px;background-color:#ffffff"></button>
+	<br>
+	<label>Player 1 Colour</label>
+	<input type="color" id="p1ColourSelector" value="#ff0000">
+	<label>Player 2 Colour</label>
+	<input type="color" id="p2ColourSelector" value="#0000ff">
 </body>
 <script>
 	var squareNumber
-	var player1Colour = "#ff0000"
-	var player2Colour = "#0000ff"
+	var player1Colour
+	var player2Colour
 	var p1PlayedSquares = []
 	var p2PlayedSquares = []
 	var turn = "p1"
+	var gameOver = false
 
 	displayText("Player 1 start!", player1Colour)
+
+	document.getElementById("p1ColourSelector").addEventListener("input", function(){
+		player1Colour = document.getElementById("p1ColourSelector").value
+	})
+
+	document.getElementById("p2ColourSelector").addEventListener("input", function(){
+		player2Colour = document.getElementById("p2ColourSelector").value
+	})
 
 	document.getElementById("sq1").addEventListener("click", function(){
 		squareNumber = "1"
@@ -60,32 +74,41 @@
 		moveSquare(squareNumber)})
 
 	function moveSquare(squareNumber){
-		if(turn == "p1" && p1PlayedSquares.length < 3){
-			if (p1PlayedSquares.indexOf(squareNumber) == -1 && p2PlayedSquares.indexOf(squareNumber) == -1 ){
-				document.getElementById(("sq" + squareNumber)).style.background = player1Colour
-				p1PlayedSquares.push(squareNumber)
-				i = checkWinner()
-				if (i != "player1"){
-					turn = "p2"
-					displayText("Player 2 go!", player2Colour)
+		if (gameOver == false){
+			if(turn == "p1" && p1PlayedSquares.length < 3){
+				if (p1PlayedSquares.indexOf(squareNumber) == -1 && p2PlayedSquares.indexOf(squareNumber) == -1 ){
+					document.getElementById(("sq" + squareNumber)).style.background = player1Colour
+					p1PlayedSquares.push(squareNumber)
+					i = checkWinner()
+					if (i != "player1"){
+						turn = "p2"
+						displayText("Player 2 go!", player2Colour)
+					}
+				}
+
+			}else if(turn == "p2" && p2PlayedSquares.length < 3){
+				if (p1PlayedSquares.indexOf(squareNumber) == -1 && p2PlayedSquares.indexOf(squareNumber) == -1 ){
+					document.getElementById(("sq" + squareNumber)).style.background = player2Colour
+					p2PlayedSquares.push(squareNumber)
+					i = checkWinner()
+					if (i != "player2"){
+						turn = "p1"
+						displayText("Player 1 go!", player1Colour)
+					}
+				}
+			} else if (turn == "p1" && p1PlayedSquares.length == 3){
+				if (p1PlayedSquares.indexOf(squareNumber) == -1){
+					displayText("Player 1, please select a square to move.", player1Colour)
+				} else {
+					removeSquare(squareNumber, "p1")
+				}
+			} else if (turn == "p2" && p2PlayedSquares.length == 3){
+				if (p2PlayedSquares.indexOf(squareNumber) == -1){
+					displayText("Player 2, please select a square to move.", player2Colour)
+				} else {
+					removeSquare(squareNumber, "p2")
 				}
 			}
-
-		}else if(turn == "p2" && p2PlayedSquares.length < 3){
-			if (p1PlayedSquares.indexOf(squareNumber) == -1 && p2PlayedSquares.indexOf(squareNumber) == -1 ){
-				document.getElementById(("sq" + squareNumber)).style.background = player2Colour
-				p2PlayedSquares.push(squareNumber)
-				i = checkWinner()
-				if (i != "player2"){
-					turn = "p1"
-					displayText("Player 1 go!", player1Colour)
-				}
-			}
-		} else if (turn == "p1" && p1PlayedSquares.length == 3){
-			displayText("Player 1, please select a square to move.", player1Colour)
-		} else if (turn == "p2" && p2PlayedSquares.length == 3){
-			displayText("Player 2, please select a square to move.", player2Colour)
-
 		}
 	}
 
@@ -146,7 +169,20 @@
 			}
 		}}
 
+	function removeSquare (square, player){
+		document.getElementById(("sq" + squareNumber)).style.background = "#ffffff"
+		if (player == "p1"){
+			x = p1PlayedSquares.indexOf(square)
+			p1PlayedSquares.splice(x, 1)
+		} else if (player == "p2"){
+			x = p2PlayedSquares.indexOf(square)
+			p2PlayedSquares.splice(x, 1)
+		}
+
+	}
+
 	function endGame(winner){
+		gameOver = true
 		if (winner == "Player 1"){
 			document.getElementById("sq1").style.background = player1Colour
 			document.getElementById("sq2").style.background = player1Colour
@@ -172,6 +208,7 @@
 	}
 
 	function restart (){
+		gameOver = false
 		document.getElementById("sq1").style.background = "#ffffff"
 		document.getElementById("sq2").style.background = "#ffffff"
 		document.getElementById("sq3").style.background = "#ffffff"
