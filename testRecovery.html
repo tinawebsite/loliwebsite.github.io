@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Tic-Tac-Toe</title>
+</head>
+<body>
+	<header>
+		<h2 id="textDisplay" onclick="restart()"></h2>
+	</header>
+
+	<button id="sq1" style="width:150px; height:150px;background-color:#ffffff"></button>
+	<button id="sq2" style="width:150px; height:150px;background-color:#ffffff"></button>
+	<button id="sq3" style="width:150px; height:150px;background-color:#ffffff"></button>
+	<br>
+	<button id="sq4" style="width:150px; height:150px;background-color:#ffffff"></button>
+	<button id="sq5" style="width:150px; height:150px;background-color:#ffffff"></button>
+	<button id="sq6" style="width:150px; height:150px;background-color:#ffffff"></button>
+	<br>
+	<button id="sq7" style="width:150px; height:150px;background-color:#ffffff"></button>
+	<button id="sq8" style="width:150px; height:150px;background-color:#ffffff"></button>
+	<button id="sq9" style="width:150px; height:150px;background-color:#ffffff"></button>
+
+	<br>
+	<label>Player 1 Colour</label>
+	<input type="color" id="p1ColourSelector" value="#8080ff">
+	<label>Player 2 Colour</label>
+	<input type="color" id="p2ColourSelector" value="#408080">
+</body>
+<script>
+	var squareNumber
+	var player1Colour = "#8080ff"
+	var player2Colour = "#408080"
+	var p1PlayedSquares = []
+	var p2PlayedSquares = []
+	var turn = "p1"
+	var gameOver = false
+
+	displayText("Player 1 start!", player1Colour)
+
+	document.getElementById("p1ColourSelector").addEventListener("input", function(){
+		player1Colour = document.getElementById("p1ColourSelector").value
+	})
+
+	document.getElementById("p2ColourSelector").addEventListener("input", function(){
+		player2Colour = document.getElementById("p2ColourSelector").value
+	})
+
+	document.getElementById("sq1").addEventListener("click", function(){
+		squareNumber = "1"
+		moveSquare(squareNumber)})
+	document.getElementById("sq2").addEventListener("click", function(){
+		squareNumber = "2"
+		moveSquare(squareNumber)})
+	document.getElementById("sq3").addEventListener("click", function(){
+		squareNumber = "3"
+		moveSquare(squareNumber)})
+	document.getElementById("sq4").addEventListener("click", function(){
+		squareNumber = "4"
+		moveSquare(squareNumber)})
+	document.getElementById("sq5").addEventListener("click", function(){
+		squareNumber = "5"
+		moveSquare(squareNumber)})
+	document.getElementById("sq6").addEventListener("click", function(){
+		squareNumber = "6"
+		moveSquare(squareNumber)})
+	document.getElementById("sq7").addEventListener("click", function(){
+		squareNumber = "7"
+		moveSquare(squareNumber)})
+	document.getElementById("sq8").addEventListener("click", function(){
+		squareNumber = "8"
+		moveSquare(squareNumber)})
+	document.getElementById("sq9").addEventListener("click", function(){
+		squareNumber = "9"
+		moveSquare(squareNumber)})
+
+	function moveSquare(squareNumber){
+		if (gameOver == false){
+			if(turn == "p1" && p1PlayedSquares.length < 3){
+				if (p1PlayedSquares.indexOf(squareNumber) == -1 && p2PlayedSquares.indexOf(squareNumber) == -1 ){
+					document.getElementById(("sq" + squareNumber)).style.background = player1Colour
+					p1PlayedSquares.push(squareNumber)
+					i = checkWinner()
+					if (i != "player1"){
+						turn = "p2"
+						displayText("Player 2 go!", player2Colour)
+					}
+				}
+
+			}else if(turn == "p2" && p2PlayedSquares.length < 3){
+				if (p1PlayedSquares.indexOf(squareNumber) == -1 && p2PlayedSquares.indexOf(squareNumber) == -1 ){
+					document.getElementById(("sq" + squareNumber)).style.background = player2Colour
+					p2PlayedSquares.push(squareNumber)
+					i = checkWinner()
+					if (i != "player2"){
+						turn = "p1"
+						displayText("Player 1 go!", player1Colour)
+					}
+				}
+			} else if (turn == "p1" && p1PlayedSquares.length == 3){
+
+				if (p1PlayedSquares.indexOf(squareNumber) == -1 && squareNumber != 5){
+					displayText("Player 1, please select a square to move.", player1Colour)
+				} else if(p1PlayedSquares.indexOf(squareNumber) != -1){
+					removeSquare(squareNumber, "p1")
+				}
+			}
+			else if (turn == "p2" && p2PlayedSquares.length == 3){
+
+					if (p2PlayedSquares.indexOf(squareNumber) == -1){
+						displayText("Player 2, please select a square to move.", player2Colour)
+					} else if(p2PlayedSquares.indexOf(squareNumber) != -1){
+						removeSquare(squareNumber, "p2")
+					}
+			}
+		}	
+	}
+
+	function checkWinner(){
+		if (turn == "p1"){
+			if(p1PlayedSquares.indexOf("1") != -1 && p1PlayedSquares.indexOf("2") != -1 && p1PlayedSquares.indexOf("3") != -1 ){
+				endGame("Player 1")
+				return "player1"
+			} else if (p1PlayedSquares.indexOf("4") != -1 && p1PlayedSquares.indexOf("5") != -1 && p1PlayedSquares.indexOf("6") != -1 ){
+				endGame("Player 1")
+				return "player1"
+			} else if (p1PlayedSquares.indexOf("7") != -1 && p1PlayedSquares.indexOf("8") != -1 && p1PlayedSquares.indexOf("9") != -1 ){
+				endGame("Player 1")
+				return "player1"
+			} else if (p1PlayedSquares.indexOf("1") != -1 && p1PlayedSquares.indexOf("4") != -1 && p1PlayedSquares.indexOf("7") != -1){
+				endGame("Player 1")
+				return "player1"
+			} else if (p1PlayedSquares.indexOf("2") != -1 && p1PlayedSquares.indexOf("5") != -1 && p1PlayedSquares.indexOf("8") != -1){
+				endGame("Player 1")
+				return "player1"
+			} else if (p1PlayedSquares.indexOf("3") != -1 && p1PlayedSquares.indexOf("6") != -1 && p1PlayedSquares.indexOf("9") != -1){
+				endGame("Player 1")
+				return "player1"
+			} else if (p1PlayedSquares.indexOf("1") != -1 && p1PlayedSquares.indexOf("5") != -1 && p1PlayedSquares.indexOf("9") != -1){
+				endGame("Player 1")
+				return "player1"
+			} else if (p1PlayedSquares.indexOf("3") != -1 && p1PlayedSquares.indexOf("5") != -1 && p1PlayedSquares.indexOf("7") != -1){
+				endGame("Player 1")
+				return "player1"
+			}
+		}
+
+		if (turn == "p2"){
+			if(p2PlayedSquares.indexOf("1") != -1 && p2PlayedSquares.indexOf("2") != -1 && p2PlayedSquares.indexOf("3") != -1 ){
+				endGame("Player 2")
+				return "player2"
+			} else if (p2PlayedSquares.indexOf("4") != -1 && p2PlayedSquares.indexOf("5") != -1 && p2PlayedSquares.indexOf("6") != -1 ){
+				endGame("Player 2")
+				return "player2"
+			} else if (p2PlayedSquares.indexOf("7") != -1 && p2PlayedSquares.indexOf("8") != -1 && p2PlayedSquares.indexOf("9") != -1 ){
+				endGame("Player 2")
+				return "player2"
+			} else if (p2PlayedSquares.indexOf("1") != -1 && p2PlayedSquares.indexOf("4") != -1 && p2PlayedSquares.indexOf("7") != -1){
+				endGame("Player 2")
+				return "player2"
+			} else if (p2PlayedSquares.indexOf("2") != -1 && p2PlayedSquares.indexOf("5") != -1 && p2PlayedSquares.indexOf("8") != -1){
+				endGame("Player 2")
+				return "player2"
+			} else if (p2PlayedSquares.indexOf("3") != -1 && p2PlayedSquares.indexOf("6") != -1 && p2PlayedSquares.indexOf("9") != -1){
+				endGame("Player 2")
+				return "player2"
+			} else if (p2PlayedSquares.indexOf("1") != -1 && p2PlayedSquares.indexOf("5") != -1 && p2PlayedSquares.indexOf("9") != -1){
+				endGame("Player 2")
+				return "player2"
+			} else if (p2PlayedSquares.indexOf("3") != -1 && p2PlayedSquares.indexOf("5") != -1 && p2PlayedSquares.indexOf("7") != -1){
+				endGame("Player 2")
+				return "player2"
+			}
+		}}
+
+	function removeSquare (square, player){
+		document.getElementById(("sq" + squareNumber)).style.background = "#ffffff"
+		if (player == "p1"){
+			x = p1PlayedSquares.indexOf(square)
+			p1PlayedSquares.splice(x, 1)
+		} else if (player == "p2"){
+			x = p2PlayedSquares.indexOf(square)
+			p2PlayedSquares.splice(x, 1)
+		}
+
+	}
+
+	function endGame(winner){
+		gameOver = true
+		if (winner == "Player 1"){
+			document.getElementById("sq1").style.background = player1Colour
+			document.getElementById("sq2").style.background = player1Colour
+			document.getElementById("sq3").style.background = player1Colour
+			document.getElementById("sq4").style.background = player1Colour
+			document.getElementById("sq5").style.background = player1Colour
+			document.getElementById("sq6").style.background = player1Colour
+			document.getElementById("sq7").style.background = player1Colour
+			document.getElementById("sq8").style.background = player1Colour
+			document.getElementById("sq9").style.background = player1Colour
+		} else if (winner == "Player 2"){
+			document.getElementById("sq1").style.background = player2Colour
+			document.getElementById("sq2").style.background = player2Colour
+			document.getElementById("sq3").style.background = player2Colour
+			document.getElementById("sq4").style.background = player2Colour
+			document.getElementById("sq5").style.background = player2Colour
+			document.getElementById("sq6").style.background = player2Colour
+			document.getElementById("sq7").style.background = player2Colour
+			document.getElementById("sq8").style.background = player2Colour
+			document.getElementById("sq9").style.background = player2Colour
+		}
+		displayText((winner + " won! Click here to restart."), "#000000")
+	}
+
+	function restart (){
+		gameOver = false
+		document.getElementById("sq1").style.background = "#ffffff"
+		document.getElementById("sq2").style.background = "#ffffff"
+		document.getElementById("sq3").style.background = "#ffffff"
+		document.getElementById("sq4").style.background = "#ffffff"
+		document.getElementById("sq5").style.background = "#ffffff"
+		document.getElementById("sq6").style.background = "#ffffff"
+		document.getElementById("sq7").style.background = "#ffffff"
+		document.getElementById("sq8").style.background = "#ffffff"
+		document.getElementById("sq9").style.background = "#ffffff"
+		p1PlayedSquares = []
+		p2PlayedSquares = []
+		turn = "p1"
+		displayText("Player 1 start!", player1Colour)
+	}
+
+	function displayText(text, colour){
+		document.getElementById("textDisplay").style.color = colour
+		document.getElementById("textDisplay").innerHTML = text
+	}
+</script>
+</html>

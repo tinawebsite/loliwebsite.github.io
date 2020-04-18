@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Tic-Tac-Toe</title>
+</head>
+<body>
+
+	<header>
+		<h2 id="textDisplay" onclick="restart()" ></h2>
+	</header>
+
+	<div id="tableSpace">
+		
+	</div>
+	
+	<br>
+	<label>Player 1 Colour</label>
+	<input type="color" id="p1ColourSelector" value="#8080ff">
+	<label>Player 2 Colour</label>
+	<input type="color" id="p2ColourSelector" value="#408080">
+
+	<br> <br>
+	<div id="selections">
+		<label>Width of playing board: </label>
+		<select id="sideX">
+		  <option value="3">3</option>
+		  <option value="4">4</option>
+		  <option value="5">5</option>
+		  <option value="6">6</option>
+		  <option value="7">7</option>
+		  <option value="8">8</option>
+		  <option value="9">9</option>
+		</select>
+		<label>Height of playing board: </label>
+		<select id="sideY">
+		  <option value="3">3</option>
+		  <option value="4">4</option>
+		  <option value="5">5</option>
+		  <option value="6">6</option>
+		  <option value="7">7</option>
+		  <option value="8">8</option>
+		  <option value="9">9</option>
+		</select>
+		<label>Number of tiles in a row to win: </label>
+		<select id="numberOfCounters">
+		  <option value="3">3</option>
+		  <option value="4">4</option>
+		  <option value="5">5</option>
+		  <option value="6">6</option>
+		  <option value="7">7</option>
+		  <option value="8">8</option>
+		  <option value="9">9</option>
+		</select>
+		<button onclick="buildBoard()"> Start</button>
+	</div>
+
+
+</body>
+<script>
+	var squareNumber
+	var player1Colour = "#8080ff"
+	var player2Colour = "#408080"
+	var p1PlayedSquares = []
+	var p2PlayedSquares = []
+	var turn = "p1"
+	var gameOver = false
+	var madeSquares = []
+
+	displayText("Player 1 start!", player1Colour)
+
+	document.getElementById("p1ColourSelector").addEventListener("input", function(){
+		player1Colour = document.getElementById("p1ColourSelector").value
+	})
+
+	document.getElementById("p2ColourSelector").addEventListener("input", function(){
+		player2Colour = document.getElementById("p2ColourSelector").value
+	})
+
+
+
+	function buildBoard (){
+		var selectedWidth = document.getElementById("sideX").value
+		var selectedHeight = document.getElementById("sideY").value
+		var selectedTileNumber = document.getElementById("numberOfCounters").value
+		let newLineCounter = 1
+		document.getElementById("tableSpace").innerHTML = ""
+		madeSquares = []
+		
+		totalSquares = selectedWidth * selectedHeight
+
+		for(var i=0; i < totalSquares; i++){
+			for(var n=0; n < selectedWidth; n++){
+				for(var m=0; m < selectedHeight; m++){
+					//if is not in array
+					thisId = JSON.stringify(m+1) + "," +JSON.stringify(n+1)
+					if(madeSquares.indexOf(thisId) == -1 && madeSquares.length != totalSquares){
+						var btn = document.createElement("BUTTON")
+						btn.id = thisId
+						btn.style = "width:50px; height:50px;background-color:#ffffff"
+						document.getElementById("tableSpace").appendChild(btn)
+						madeSquares.push(thisId)
+						if(newLineCounter >= selectedWidth){
+							var breakline = document.createElement("BR")
+							document.getElementById("tableSpace").appendChild(breakline)
+							newLineCounter = 1
+						} else {
+							newLineCounter += 1
+						}
+					}
+				}
+			}
+		}
+		addButtonEventListeners()
+	}
+
+	function addButtonEventListeners (){
+		madeSquares.forEach(function (i) {
+			document.getElementById(i).addEventListener("click", function(){
+				squareNumber = i
+				moveSquare(squareNumber)
+			})
+		})
+	}
+
+	function moveSquare(squareNumber){
+		var selectedTileNumber = document.getElementById("numberOfCounters").value
+		if (gameOver == false){
+			if(turn == "p1" && p1PlayedSquares.length < selectedTileNumber){
+				if (p1PlayedSquares.indexOf(squareNumber) == -1 && p2PlayedSquares.indexOf(squareNumber) == -1 ){
+					document.getElementById((squareNumber)).style.background = player1Colour
+					p1PlayedSquares.push(squareNumber)
+					i = checkWinner()
+					if (i != "player1"){
+						turn = "p2"
+						displayText("Player 2 go!", player2Colour)
+					}
+				}
+
+			}else if(turn == "p2" && p2PlayedSquares.length < selectedTileNumber){
+				if (p1PlayedSquares.indexOf(squareNumber) == -1 && p2PlayedSquares.indexOf(squareNumber) == -1 ){
+					document.getElementById((squareNumber)).style.background = player2Colour
+					p2PlayedSquares.push(squareNumber)
+					i = checkWinner()
+					if (i != "player2"){
+						turn = "p1"
+						displayText("Player 1 go!", player1Colour)
+					}
+				}
+			} else if (turn == "p1" && p1PlayedSquares.length == selectedTileNumber){
+				if (p1PlayedSquares.indexOf(squareNumber) == -1){
+					displayText("Player 1, please select a square to move.", player1Colour)
+				} else {
+					removeSquare(squareNumber, "p1")
+				}
+			} else if (turn == "p2" && p2PlayedSquares.length == selectedTileNumber){
+				if (p2PlayedSquares.indexOf(squareNumber) == -1){
+					displayText("Player 2, please select a square to move.", player2Colour)
+				} else {
+					removeSquare(squareNumber, "p2")
+				}
+			}
+		}	
+	}
+
+	function checkWinner(){
+        var selectedTileNumber = document.getElementById("numberOfCounters").value
+        var done = false
+        var correctSquares = []
+        var finalDecider = true
+
+        if (turn == "p1"){
+	        for(i in madeSquares){
+	        	if(p1PlayedSquares.indexOf(madeSquares[i]) != -1 && done == false){
+	        		checkHorizontalLeft1(madeSquares[i])
+		        	done = true	
+	        	}
+	        }
+
+	        function checkHorizontalLeft1(firstSquare){
+	        	nextSquare = firstSquare
+	        	for(var i=0; i < selectedTileNumber - 1; i++){
+		        	z = parseInt(nextSquare.charAt(2))
+		        	nextSquare = setCharAt(firstSquare,2,z+1)
+
+		        	correctSquares.push(nextSquare)
+	        	}
+
+				for(i in correctSquares){
+					if(p1PlayedSquares.indexOf(correctSquares[i]) == -1){
+						finalDecider = false
+					}
+				}
+				if(finalDecider == true){
+					winnerFound("1")
+					done = false
+				} else {
+					checkHorizontalRight1(firstSquare)
+				}
+	        }
+	        function checkHorizontalRight1(firstSquare){
+	        	nextSquare = firstSquare
+	        	for(var i=0; i < selectedTileNumber - 1; i++){
+		        	z = parseInt(nextSquare.charAt(2))
+		        	nextSquare = setCharAt(firstSquare,2,z-1)
+
+		        	correctSquares.push(nextSquare)
+	        	}
+
+				for(i in correctSquares){
+					if(p1PlayedSquares.indexOf(correctSquares[i]) == -1){
+						finalDecider = false
+					}
+				}
+				if(finalDecider == true){
+					winnerFound("1")
+					done = false
+				} else {
+					checkVerticalDown1(firstSquare)
+				}
+	        }
+	       	function checkVerticalDown1(firstSquare){
+	        	nextSquare = firstSquare
+	        	for(var i=0; i < selectedTileNumber - 1; i++){
+		        	z = parseInt(nextSquare.charAt(0))
+		        	nextSquare = setCharAt(firstSquare,0,z-1)
+
+		        	correctSquares.push(nextSquare)
+	        	}
+
+				for(i in correctSquares){
+					if(p1PlayedSquares.indexOf(correctSquares[i]) == -1){
+						finalDecider = false
+					}
+				}
+				if(finalDecider == true){
+					winnerFound("1")
+					done = false
+				} else {
+					checkVerticalUp1(firstSquare)
+				}
+	        }
+	        
+	        function checkVerticalUp1(firstSquare){
+	        	nextSquare = firstSquare
+	        	for(var i=0; i < selectedTileNumber - 1; i++){
+		        	z = parseInt(nextSquare.charAt(0))
+		        	nextSquare = setCharAt(firstSquare,0,z+1)
+
+		        	correctSquares.push(nextSquare)
+	        	}
+
+				for(i in correctSquares){
+					if(p1PlayedSquares.indexOf(correctSquares[i]) == -1){
+						finalDecider = false
+					}
+				}
+				if(finalDecider == true){
+					winnerFound("1")
+					done = false
+				} else {
+					//checkVerticalDown1(firstSquare)
+				}
+	        }
+
+
+        }
+
+        function winnerFound(winner){
+        	if(winner == "1"){
+		        endGame("Player 1") 		
+        	}else if(winner == "2"){
+		        endGame("Player 2") 		
+        	}
+        }
+
+	}
+
+	function removeSquare (square, player){
+		document.getElementById((squareNumber)).style.background = "#ffffff"
+		if (player == "p1"){
+			x = p1PlayedSquares.indexOf(square)
+			p1PlayedSquares.splice(x, 1)
+		} else if (player == "p2"){
+			x = p2PlayedSquares.indexOf(square)
+			p2PlayedSquares.splice(x, 1)
+		}
+		checkWinner()
+	}
+
+	function endGame(winner){
+		gameOver = true
+		if (winner == "Player 1"){
+			madeSquares.forEach(function (i) {
+				document.getElementById(i).style.background = player1Colour
+			})
+		} else if (winner == "Player 2"){
+			madeSquares.forEach(function (i) {
+				document.getElementById(i).style.background = player2Colour
+			})
+		}
+		displayText((winner + " won! Click here to restart."), "#000000")
+	}
+
+	function restart (){
+		gameOver = false
+		p1PlayedSquares = []
+		p2PlayedSquares = []
+		turn = "p1"
+		displayText("Player 1 start!", player1Colour)
+		buildBoard()
+	}
+
+	function displayText(text, colour){
+		document.getElementById("textDisplay").style.color = colour
+		document.getElementById("textDisplay").innerHTML = text
+	} 
+
+	function setCharAt(str,index,chr) {
+	    if(index > str.length-1) return str
+	    return str.substr(0,index) + chr + str.substr(index+1);
+	}
+</script>
+</html>
