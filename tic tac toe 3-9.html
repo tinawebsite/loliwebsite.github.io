@@ -52,7 +52,13 @@
 		  <option value="9">9</option>
 		</select>
 		<button onclick="buildBoard()"> Start</button>
+		<br>
+		<label>Player 1 name:</label>
+		<input type="text" id="p1Name">
+		<label>Player 2 name:</label>
+		<input type="text" id="p2Name">
 	</div>
+
 
 
 </body>
@@ -65,8 +71,15 @@
 	var turn = "p1"
 	var gameOver = false
 	var madeSquares = []
+	p1Name = "Player 1"
+	p2Name = "Player 2" 
 
-	displayText("Player 1 start!", player1Colour)
+	document.getElementById("p1Name").addEventListener("input", function(){
+		p1Name = document.getElementById("p1Name").value
+	})
+	document.getElementById("p2Name").addEventListener("input", function(){
+		p2Name = document.getElementById("p2Name").value
+	})
 
 	document.getElementById("p1ColourSelector").addEventListener("input", function(){
 		player1Colour = document.getElementById("p1ColourSelector").value
@@ -78,11 +91,13 @@
 
 
 
+
 	function buildBoard (){
 		var selectedWidth = document.getElementById("sideX").value
 		var selectedHeight = document.getElementById("sideY").value
 		var selectedTileNumber = document.getElementById("numberOfCounters").value
 		let newLineCounter = 1
+		displayText(p1Name + " start!", player1Colour)
 		document.getElementById("tableSpace").innerHTML = ""
 		madeSquares = []
 		
@@ -129,10 +144,12 @@
 				if (p1PlayedSquares.indexOf(squareNumber) == -1 && p2PlayedSquares.indexOf(squareNumber) == -1 ){
 					document.getElementById((squareNumber)).style.background = player1Colour
 					p1PlayedSquares.push(squareNumber)
-					i = checkWinner()
-					if (i != "player1"){
+					checkWinner()
+					if (gameOver == true){
+						displayText((p1Name + " won! Click here to restart."), "#000000")
+					}else {
 						turn = "p2"
-						displayText("Player 2 go!", player2Colour)
+						displayText(p2Name + " go!", player2Colour)
 					}
 				}
 
@@ -140,21 +157,23 @@
 				if (p1PlayedSquares.indexOf(squareNumber) == -1 && p2PlayedSquares.indexOf(squareNumber) == -1 ){
 					document.getElementById((squareNumber)).style.background = player2Colour
 					p2PlayedSquares.push(squareNumber)
-					i = checkWinner()
-					if (i != "player2"){
+					checkWinner()
+					if (gameOver == true){
+						displayText((p2Name + " won! Click here to restart."), "#000000")
+					}else {
 						turn = "p1"
-						displayText("Player 1 go!", player1Colour)
+						displayText(p1Name + " go!", player1Colour)
 					}
 				}
 			} else if (turn == "p1" && p1PlayedSquares.length == selectedTileNumber){
 				if (p1PlayedSquares.indexOf(squareNumber) == -1){
-					displayText("Player 1, please select a square to move.", player1Colour)
+					displayText(p1Name + ", please select a square to move.", player1Colour)
 				} else {
 					removeSquare(squareNumber, "p1")
 				}
 			} else if (turn == "p2" && p2PlayedSquares.length == selectedTileNumber){
 				if (p2PlayedSquares.indexOf(squareNumber) == -1){
-					displayText("Player 2, please select a square to move.", player2Colour)
+					displayText(p2Name + ", please select a square to move.", player2Colour)
 				} else {
 					removeSquare(squareNumber, "p2")
 				}
@@ -171,12 +190,14 @@
         if (turn == "p1"){
 	        for(i in madeSquares){
 	        	if(p1PlayedSquares.indexOf(madeSquares[i]) != -1 && done == false){
-	        		checkHorizontalLeft1(madeSquares[i])
+	        		checkVertical1(madeSquares[i])
 		        	done = true	
 	        	}
 	        }
 
-	        function checkHorizontalLeft1(firstSquare){
+	        function checkVertical1(firstSquare){
+	        	var finalDecider = true
+	        	correctSquares = []
 	        	nextSquare = firstSquare
 	        	for(var i=0; i < selectedTileNumber - 1; i++){
 		        	z = parseInt(nextSquare.charAt(2))
@@ -184,26 +205,8 @@
 
 		        	correctSquares.push(nextSquare)
 	        	}
-
-				for(i in correctSquares){
-					if(p1PlayedSquares.indexOf(correctSquares[i]) == -1){
-						finalDecider = false
-					}
-				}
-				if(finalDecider == true){
-					winnerFound("1")
-					done = false
-				} else {
-					checkHorizontalRight1(firstSquare)
-				}
-	        }
-	        function checkHorizontalRight1(firstSquare){
-	        	nextSquare = firstSquare
-	        	for(var i=0; i < selectedTileNumber - 1; i++){
-		        	z = parseInt(nextSquare.charAt(2))
-		        	nextSquare = setCharAt(firstSquare,2,z-1)
-
-		        	correctSquares.push(nextSquare)
+	        	while(correctSquares.length >= selectedTileNumber){
+	        		correctSquares.splice(-1)
 	        	}
 
 				for(i in correctSquares){
@@ -215,32 +218,12 @@
 					winnerFound("1")
 					done = false
 				} else {
-					checkVerticalDown1(firstSquare)
+					checkHorizontal1(firstSquare)
 				}
 	        }
-	       	function checkVerticalDown1(firstSquare){
-	        	nextSquare = firstSquare
-	        	for(var i=0; i < selectedTileNumber - 1; i++){
-		        	z = parseInt(nextSquare.charAt(0))
-		        	nextSquare = setCharAt(firstSquare,0,z-1)
-
-		        	correctSquares.push(nextSquare)
-	        	}
-
-				for(i in correctSquares){
-					if(p1PlayedSquares.indexOf(correctSquares[i]) == -1){
-						finalDecider = false
-					}
-				}
-				if(finalDecider == true){
-					winnerFound("1")
-					done = false
-				} else {
-					checkVerticalUp1(firstSquare)
-				}
-	        }
-	        
-	        function checkVerticalUp1(firstSquare){
+	       	function checkHorizontal1(firstSquare){
+	        	correctSquares = []
+	       		finalDecider = true
 	        	nextSquare = firstSquare
 	        	for(var i=0; i < selectedTileNumber - 1; i++){
 		        	z = parseInt(nextSquare.charAt(0))
@@ -249,6 +232,10 @@
 		        	correctSquares.push(nextSquare)
 	        	}
 
+	        	while(correctSquares.length >= selectedTileNumber){
+	        		correctSquares.splice(-1)
+	        	}
+
 				for(i in correctSquares){
 					if(p1PlayedSquares.indexOf(correctSquares[i]) == -1){
 						finalDecider = false
@@ -258,11 +245,167 @@
 					winnerFound("1")
 					done = false
 				} else {
-					//checkVerticalDown1(firstSquare)
+					checkDiagonalLtR1(firstSquare)
 				}
 	        }
+	       	function checkDiagonalLtR1(firstSquare){
+	       		correctSquares = []
+	       		finalDecider = true
+	        	nextSquare = firstSquare
+	        	for(var i=0; i < selectedTileNumber - 1; i++){
+		        	z = parseInt(nextSquare.charAt(0))
+		        	w = parseInt(nextSquare.charAt(2))
+		        	nextSquare = setCharAt(firstSquare,0,z+1)
+		        	nextSquare = setCharAt(nextSquare,2,w+1)
 
+		        	correctSquares.push(nextSquare)
+	        	}
+	        	
+				for(i in correctSquares){
+					if(p1PlayedSquares.indexOf(correctSquares[i]) == -1){
+						finalDecider = false
+					}
+				}
+				if(finalDecider == true){
+					winnerFound("1")
+					done = false
+				} else {
+					checkDiagonalRtL1(firstSquare)
+				}
+	        }
+	       	function checkDiagonalRtL1(firstSquare){
+	       		correctSquares = []
+	       		finalDecider = true
+	        	nextSquare = firstSquare
+	        	for(var i=0; i < selectedTileNumber - 1; i++){
+		        	z = parseInt(nextSquare.charAt(0))
+		        	w = parseInt(nextSquare.charAt(2))
+		        	nextSquare = setCharAt(firstSquare,0,z-1)
+		        	nextSquare = setCharAt(nextSquare,2,w+1)
 
+		        	correctSquares.push(nextSquare)
+	        	}
+	        	
+				for(i in correctSquares){
+					if(p1PlayedSquares.indexOf(correctSquares[i]) == -1){
+						finalDecider = false
+					}
+				}
+				if(finalDecider == true){
+					winnerFound("1")
+					done = false
+				}
+	        }
+        }
+        if (turn == "p2"){
+	        for(i in madeSquares){
+	        	if(p2PlayedSquares.indexOf(madeSquares[i]) != -1 && done == false){
+	        		checkVertical2(madeSquares[i])
+		        	done = true	
+	        	}
+	        }
+
+	        function checkVertical2(firstSquare){
+	        	var finalDecider = true
+	        	correctSquares = []
+	        	nextSquare = firstSquare
+	        	for(var i=0; i < selectedTileNumber - 1; i++){
+		        	z = parseInt(nextSquare.charAt(2))
+		        	nextSquare = setCharAt(firstSquare,2,z+1)
+
+		        	correctSquares.push(nextSquare)
+	        	}
+	        	while(correctSquares.length >= selectedTileNumber){
+	        		correctSquares.splice(-1)
+	        	}
+
+				for(i in correctSquares){
+					if(p2PlayedSquares.indexOf(correctSquares[i]) == -1){
+						finalDecider = false
+					}
+				}
+				if(finalDecider == true){
+					winnerFound("2")
+					done = false
+				} else {
+					checkHorizontal2(firstSquare)
+				}
+	        }
+	       	function checkHorizontal2(firstSquare){
+	        	correctSquares = []
+	       		finalDecider = true
+	        	nextSquare = firstSquare
+	        	for(var i=0; i < selectedTileNumber - 1; i++){
+		        	z = parseInt(nextSquare.charAt(0))
+		        	nextSquare = setCharAt(firstSquare,0,z+1)
+
+		        	correctSquares.push(nextSquare)
+	        	}
+
+	        	while(correctSquares.length >= selectedTileNumber){
+	        		correctSquares.splice(-1)
+	        	}
+
+				for(i in correctSquares){
+					if(p2PlayedSquares.indexOf(correctSquares[i]) == -1){
+						finalDecider = false
+					}
+				}
+				if(finalDecider == true){
+					winnerFound("2")
+					done = false
+				} else {
+					checkDiagonalLtR2(firstSquare)
+				}
+	        }
+	       	function checkDiagonalLtR2(firstSquare){
+	       		correctSquares = []
+	       		finalDecider = true
+	        	nextSquare = firstSquare
+	        	for(var i=0; i < selectedTileNumber - 1; i++){
+		        	z = parseInt(nextSquare.charAt(0))
+		        	w = parseInt(nextSquare.charAt(2))
+		        	nextSquare = setCharAt(firstSquare,0,z+1)
+		        	nextSquare = setCharAt(nextSquare,2,w+1)
+
+		        	correctSquares.push(nextSquare)
+	        	}
+	        	
+				for(i in correctSquares){
+					if(p2PlayedSquares.indexOf(correctSquares[i]) == -1){
+						finalDecider = false
+					}
+				}
+				if(finalDecider == true){
+					winnerFound("2")
+					done = false
+				} else {
+					checkDiagonalRtL2(firstSquare)
+				}
+	        }
+	       	function checkDiagonalRtL2(firstSquare){
+	       		correctSquares = []
+	       		finalDecider = true
+	        	nextSquare = firstSquare
+	        	for(var i=0; i < selectedTileNumber - 1; i++){
+		        	z = parseInt(nextSquare.charAt(0))
+		        	w = parseInt(nextSquare.charAt(2))
+		        	nextSquare = setCharAt(firstSquare,0,z-1)
+		        	nextSquare = setCharAt(nextSquare,2,w+1)
+
+		        	correctSquares.push(nextSquare)
+	        	}
+	        	
+				for(i in correctSquares){
+					if(p2PlayedSquares.indexOf(correctSquares[i]) == -1){
+						finalDecider = false
+					}
+				}
+				if(finalDecider == true){
+					winnerFound("2")
+					done = false
+				}
+	        }
         }
 
         function winnerFound(winner){
@@ -272,7 +415,6 @@
 		        endGame("Player 2") 		
         	}
         }
-
 	}
 
 	function removeSquare (square, player){
@@ -298,7 +440,6 @@
 				document.getElementById(i).style.background = player2Colour
 			})
 		}
-		displayText((winner + " won! Click here to restart."), "#000000")
 	}
 
 	function restart (){
@@ -306,7 +447,7 @@
 		p1PlayedSquares = []
 		p2PlayedSquares = []
 		turn = "p1"
-		displayText("Player 1 start!", player1Colour)
+		displayText(p1Name + " start!", player1Colour)
 		buildBoard()
 	}
 
