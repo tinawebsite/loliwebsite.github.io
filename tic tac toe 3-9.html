@@ -1,62 +1,76 @@
 <!DOCTYPE html>
-<html>
-<head>
+<html<head>
 	<title>Tic-Tac-Toe</title>
 </head>
+<style>
+	input[type=number]{
+   		width: 50px;
+	} 
+</style>
 <body>
-
-	<header>
-		<h2 id="textDisplay" onclick="restart()" ></h2>
-	</header>
+	<h3 id="time">00:00</h3>
+	<hr>
+	<h2 id="textDisplay" onclick="restart()" ></h2>
 
 	<div id="tableSpace">
 		
 	</div>
-	
-	<br>
-	<label>Player 1 Colour</label>
-	<input type="color" id="p1ColourSelector" value="#8080ff">
-	<label>Player 2 Colour</label>
-	<input type="color" id="p2ColourSelector" value="#408080">
+	<hr>
+	<div id="options">
+		<label>Player 1 Colour</label>
+		<input type="color" id="p1ColourSelector" value="#8080ff">
+		<label>Player 2 Colour</label>
+		<input type="color" id="p2ColourSelector" value="#408080">
 
-	<br> <br>
-	<div id="selections">
+		<br> <br>
+
 		<label>Width of playing board: </label>
 		<select id="sideX">
-		  <option value="3">3</option>
-		  <option value="4">4</option>
-		  <option value="5">5</option>
-		  <option value="6">6</option>
-		  <option value="7">7</option>
-		  <option value="8">8</option>
-		  <option value="9">9</option>
+			<option value="3">3</option>
+			<option value="4">4</option>
+			<option value="5">5</option>
+			<option value="6">6</option>
+			<option value="7">7</option>
+			<option value="8">8</option>
+			<option value="9">9</option>
 		</select>
 		<label>Height of playing board: </label>
 		<select id="sideY">
-		  <option value="3">3</option>
-		  <option value="4">4</option>
-		  <option value="5">5</option>
-		  <option value="6">6</option>
-		  <option value="7">7</option>
-		  <option value="8">8</option>
-		  <option value="9">9</option>
+		    <option value="3">3</option>
+			<option value="4">4</option>
+			<option value="5">5</option>
+			<option value="6">6</option>
+			<option value="7">7</option>
+			<option value="8">8</option>
+			<option value="9">9</option>
 		</select>
 		<label>Number of tiles in a row to win: </label>
 		<select id="numberOfCounters">
-		  <option value="3">3</option>
-		  <option value="4">4</option>
-		  <option value="5">5</option>
-		  <option value="6">6</option>
-		  <option value="7">7</option>
-		  <option value="8">8</option>
-		  <option value="9">9</option>
+			<option value="3">3</option>
+			<option value="4">4</option>
+			<option value="5">5</option>
+			<option value="6">6</option>
+			<option value="7">7</option>
+			<option value="8">8</option>
+			<option value="9">9</option>
 		</select>
 		<button onclick="buildBoard()"> Start</button>
+		<br>
 		<br>
 		<label>Player 1 name:</label>
 		<input type="text" id="p1Name">
 		<label>Player 2 name:</label>
 		<input type="text" id="p2Name">
+
+		<br>
+		<br>
+		<input type="checkbox" id="timeLimitQuestion">	
+		<label>Time Limit </label>
+		<section id="timeLimitSection" style="display:none">
+			<label> ~ </label>
+			<input type="number" id="timeLimitNum" min = "1">
+			<label id="timeLimitNum">mins</label>
+		</section>	
 	</div>
 
 
@@ -71,6 +85,8 @@
 	var turn = "p1"
 	var gameOver = false
 	var madeSquares = []
+	var timeFirst = true
+	var timeLimit
 	p1Name = "Player 1"
 	p2Name = "Player 2" 
 
@@ -89,6 +105,18 @@
 		player2Colour = document.getElementById("p2ColourSelector").value
 	})
 
+	document.getElementById("timeLimitNumm").addEventListener("change", function(){
+		timeLimit = document.getElementById("timeLimitNumm").value
+	})
+
+	document.getElementById("timeLimitQuestion").addEventListener("change", function(){
+		if(document.getElementById("timeLimitQuestion").checked == true){
+			document.getElementById("timeLimitSection").style.display = "inline"}
+		else if(document.getElementById("timeLimitQuestion").checked == false){
+			document.getElementById("timeLimitSection").style.display = "none"
+		}
+	})
+
 
 
 
@@ -102,27 +130,36 @@
 		madeSquares = []
 		
 		totalSquares = selectedWidth * selectedHeight
+		m = 1
+		n = 1
 
 		for(var i=0; i < totalSquares; i++){
-			for(var n=0; n < selectedWidth; n++){
-				for(var m=0; m < selectedHeight; m++){
-					//if is not in array
-					thisId = JSON.stringify(m+1) + "," +JSON.stringify(n+1)
-					if(madeSquares.indexOf(thisId) == -1 && madeSquares.length != totalSquares){
-						var btn = document.createElement("BUTTON")
-						btn.id = thisId
-						btn.style = "width:50px; height:50px;background-color:#ffffff"
-						document.getElementById("tableSpace").appendChild(btn)
-						madeSquares.push(thisId)
-						if(newLineCounter >= selectedWidth){
-							var breakline = document.createElement("BR")
-							document.getElementById("tableSpace").appendChild(breakline)
-							newLineCounter = 1
-						} else {
-							newLineCounter += 1
-						}
-					}
+			thisId = JSON.stringify(m) + "," +JSON.stringify(n)
+
+			if(madeSquares.indexOf(thisId) == -1 && madeSquares.length != totalSquares){
+				var btn = document.createElement("BUTTON")
+				btn.id = thisId
+				btn.style = "width:50px; height:50px;background-color:#ffffff"
+				document.getElementById("tableSpace").appendChild(btn)
+				madeSquares.push(thisId)
+				if(newLineCounter >= selectedWidth){
+					var breakline = document.createElement("BR")
+					document.getElementById("tableSpace").appendChild(breakline)
+					newLineCounter = 1
+				} else {
+					newLineCounter += 1
 				}
+			}
+
+			if(m == selectedWidth){
+				m = 1
+				if(n == selectedHeight){
+					n = 1
+				} else {
+					n += 1
+				}
+			} else {
+				m += 1
 			}
 		}
 		addButtonEventListeners()
@@ -138,6 +175,10 @@
 	}
 
 	function moveSquare(squareNumber){
+		if(timeFirst == true){
+			startTimer()
+			timeFirst = false
+		}
 		var selectedTileNumber = document.getElementById("numberOfCounters").value
 		if (gameOver == false){
 			if(turn == "p1" && p1PlayedSquares.length < selectedTileNumber){
@@ -430,6 +471,7 @@
 	}
 
 	function endGame(winner){
+		stopTimer()
 		gameOver = true
 		if (winner == "Player 1"){
 			madeSquares.forEach(function (i) {
@@ -443,12 +485,15 @@
 	}
 
 	function restart (){
+		resetTimer()
 		gameOver = false
 		p1PlayedSquares = []
 		p2PlayedSquares = []
 		turn = "p1"
 		displayText(p1Name + " start!", player1Colour)
 		buildBoard()
+		timeFirst = true
+		document.getElementById("time").innerHTML = "00:00"
 	}
 
 	function displayText(text, colour){
@@ -460,5 +505,37 @@
 	    if(index > str.length-1) return str
 	    return str.substr(0,index) + chr + str.substr(index+1);
 	}
+
+	//TIMER
+	var timeElapsed = 0;
+	var myTimer = 0;
+	function startTimer() {
+	    myTimer = setInterval(function(){
+	        timeElapsed += 1;
+	        remain = timeElapsed
+	        mins = Math.floor(remain / 60)
+	        remain -= mins * 60;
+	        secs = remain
+
+	        if (mins<10) { mins = "0" + mins; }
+	        if (secs<10) { secs = "0" + secs; }
+
+	        document.getElementById("time").innerText = mins + ":" + secs;}, 1000) ;
+	        if(timeLimit < mins){
+
+	        }
+	    	//if(document.getElementById("time").innerText == )
+	}
+
+	function stopTimer() {
+   		clearInterval(myTimer);
+	}
+	function resetTimer() {
+   		timeElapsed = 0;
+   		clearInterval(myTimer);
+   		document.getElementById("time").innerHTML = timeElapsed;
+	}
+
+
 </script>
 </html>
