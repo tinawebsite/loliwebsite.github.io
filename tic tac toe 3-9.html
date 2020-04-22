@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html<head>
+<html>
+<head>
 	<title>Tic-Tac-Toe</title>
 </head>
 <style>
@@ -87,6 +88,7 @@
 	var madeSquares = []
 	var timeFirst = true
 	var timeLimit
+	var mins
 	p1Name = "Player 1"
 	p2Name = "Player 2" 
 
@@ -105,8 +107,8 @@
 		player2Colour = document.getElementById("p2ColourSelector").value
 	})
 
-	document.getElementById("timeLimitNumm").addEventListener("change", function(){
-		timeLimit = document.getElementById("timeLimitNumm").value
+	document.getElementById("timeLimitNum").addEventListener("change", function(){
+		timeLimit = document.getElementById("timeLimitNum").value
 	})
 
 	document.getElementById("timeLimitQuestion").addEventListener("change", function(){
@@ -481,6 +483,11 @@
 			madeSquares.forEach(function (i) {
 				document.getElementById(i).style.background = player2Colour
 			})
+		} else if (winner == "draw"){
+			madeSquares.forEach(function (i) {
+				document.getElementById(i).style.background = "#ffffff"
+			})
+			displayText("Time limit reached. The game was a draw! Click here to restart.", "#000000")		
 		}
 	}
 
@@ -517,13 +524,17 @@
 	        remain -= mins * 60;
 	        secs = remain
 
-	        if (mins<10) { mins = "0" + mins; }
+
+	        if (mins<10) { mins1 = "0" + mins; }
 	        if (secs<10) { secs = "0" + secs; }
 
-	        document.getElementById("time").innerText = mins + ":" + secs;}, 1000) ;
-	        if(timeLimit < mins){
-
+	        if(timeLimit > mins){
+	        	document.getElementById("time").innerText = mins1 + ":" + secs;
+	        } else if (timeLimit <= mins){
+	        	endGame("draw")
 	        }
+
+	    }, 1000) ;
 	    	//if(document.getElementById("time").innerText == )
 	}
 
