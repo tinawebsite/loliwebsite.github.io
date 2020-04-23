@@ -1,15 +1,16 @@
+<!-- 
+	numero de jugadas
+
+-->
 <!DOCTYPE html>
 <html>
 <head>
 	<title>Tic-Tac-Toe</title>
 </head>
-<style>
-	input[type=number]{
-   		width: 50px;
-	} 
-</style>
 <body>
 	<h3 id="time">00:00</h3>
+	<h3 id="p1Plays" style="display:none;">0</h3>
+	<h3 id="p2Plays" style="display:none;" >0</h3>
 	<hr>
 	<h2 id="textDisplay" onclick="restart()" ></h2>
 
@@ -69,7 +70,7 @@
 		<label>Time Limit </label>
 		<section id="timeLimitSection" style="display:none">
 			<label> ~ </label>
-			<input type="number" id="timeLimitNum" min = "1">
+			<input type="number" id="timeLimitNum" min = "1" oninput="this.value=(parseInt(this.value)||0)" style="width:50px">
 			<label id="timeLimitNum">mins</label>
 		</section>	
 	</div>
@@ -87,10 +88,12 @@
 	var gameOver = false
 	var madeSquares = []
 	var timeFirst = true
-	var timeLimit
+	var timeLimit = false
 	var mins
 	p1Name = "Player 1"
 	p2Name = "Player 2" 
+	var p1TotalPLays = 0
+	var p2TotalPLays = 0
 
 	document.getElementById("p1Name").addEventListener("input", function(){
 		p1Name = document.getElementById("p1Name").value
@@ -113,7 +116,8 @@
 
 	document.getElementById("timeLimitQuestion").addEventListener("change", function(){
 		if(document.getElementById("timeLimitQuestion").checked == true){
-			document.getElementById("timeLimitSection").style.display = "inline"}
+			document.getElementById("timeLimitSection").style.display = "inline"
+		}
 		else if(document.getElementById("timeLimitQuestion").checked == false){
 			document.getElementById("timeLimitSection").style.display = "none"
 		}
@@ -123,6 +127,10 @@
 
 
 	function buildBoard (){
+		document.getElementById("p1Plays").style.color = player1Colour
+		document.getElementById("p2Plays").style.color = player2Colour
+		document.getElementById("p1Plays").style.display = "inline"
+		document.getElementById("p2Plays").style.display = "inline"
 		var selectedWidth = document.getElementById("sideX").value
 		var selectedHeight = document.getElementById("sideY").value
 		var selectedTileNumber = document.getElementById("numberOfCounters").value
@@ -194,6 +202,8 @@
 						turn = "p2"
 						displayText(p2Name + " go!", player2Colour)
 					}
+					p1TotalPLays += 1
+					document.getElementById("p1Plays").innerHTML = p1TotalPLays
 				}
 
 			}else if(turn == "p2" && p2PlayedSquares.length < selectedTileNumber){
@@ -207,6 +217,8 @@
 						turn = "p1"
 						displayText(p1Name + " go!", player1Colour)
 					}
+					p2TotalPLays += 1
+					document.getElementById("p2Plays").innerHTML = p2TotalPLays
 				}
 			} else if (turn == "p1" && p1PlayedSquares.length == selectedTileNumber){
 				if (p1PlayedSquares.indexOf(squareNumber) == -1){
@@ -484,9 +496,6 @@
 				document.getElementById(i).style.background = player2Colour
 			})
 		} else if (winner == "draw"){
-			madeSquares.forEach(function (i) {
-				document.getElementById(i).style.background = "#ffffff"
-			})
 			displayText("Time limit reached. The game was a draw! Click here to restart.", "#000000")		
 		}
 	}
@@ -528,14 +537,18 @@
 	        if (mins<10) { mins1 = "0" + mins; }
 	        if (secs<10) { secs = "0" + secs; }
 
-	        if(timeLimit > mins){
+	        if(timeLimit != false){
+		        if(timeLimit > mins){
+		        	document.getElementById("time").innerText = mins1 + ":" + secs;
+		        } else if (timeLimit <= mins){
+		        	document.getElementById("time").innerText = mins1 + ":" + secs;
+		        	endGame("draw")
+		        }
+	        }else {
 	        	document.getElementById("time").innerText = mins1 + ":" + secs;
-	        } else if (timeLimit <= mins){
-	        	endGame("draw")
 	        }
 
 	    }, 1000) ;
-	    	//if(document.getElementById("time").innerText == )
 	}
 
 	function stopTimer() {
