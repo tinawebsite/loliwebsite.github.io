@@ -9,11 +9,12 @@
 </head>
 <body>
 	<h3 id="time">00:00</h3>
-	<h3 id="p1Plays" style="display:none;">0</h3>
-	<h3 id="p2Plays" style="display:none;" >0</h3>
+	<div id="listOfResults" style="display:none;">	
+	</div>
 	<hr>
 	<h2 id="textDisplay" onclick="restart()" ></h2>
-
+	<h3 id="p1Plays" style="display:none;">0</h3>
+	<h3 id="p2Plays" style="display:none;" >0</h3>
 	<div id="tableSpace">
 		
 	</div>
@@ -56,7 +57,7 @@
 			<option value="8">8</option>
 			<option value="9">9</option>
 		</select>
-		<button onclick="buildBoard()"> Start</button>
+		<button onclick="restart(),buildBoard()"> Start</button>
 		<br>
 		<br>
 		<label>Player 1 name:</label>
@@ -90,6 +91,7 @@
 	var timeFirst = true
 	var timeLimit = false
 	var mins
+	var listOfWinners = ""
 	p1Name = "Player 1"
 	p2Name = "Player 2" 
 	var p1TotalPLays = 0
@@ -127,10 +129,6 @@
 
 
 	function buildBoard (){
-		document.getElementById("p1Plays").style.color = player1Colour
-		document.getElementById("p2Plays").style.color = player2Colour
-		document.getElementById("p1Plays").style.display = "inline"
-		document.getElementById("p2Plays").style.display = "inline"
 		var selectedWidth = document.getElementById("sideX").value
 		var selectedHeight = document.getElementById("sideY").value
 		var selectedTileNumber = document.getElementById("numberOfCounters").value
@@ -185,6 +183,11 @@
 	}
 
 	function moveSquare(squareNumber){
+		document.getElementById("p1Plays").style.color = player1Colour
+		document.getElementById("p2Plays").style.color = player2Colour
+		document.getElementById("p1Plays").style.display = "inline"
+		document.getElementById("p2Plays").style.display = "inline"
+
 		if(timeFirst == true){
 			startTimer()
 			timeFirst = false
@@ -486,22 +489,43 @@
 
 	function endGame(winner){
 		stopTimer()
+		document.getElementById("listOfResults").style.display = "block"
 		gameOver = true
 		if (winner == "Player 1"){
 			madeSquares.forEach(function (i) {
 				document.getElementById(i).style.background = player1Colour
-			})
+			}) 
+			var thisWinner = document.createElement("H2")
+			thisWinner.style.color = player1Colour
+			thisWinner.style.display = "inline"
+			thisWinner.innerHTML = "O"
+			document.getElementById("listOfResults").appendChild(thisWinner)
 		} else if (winner == "Player 2"){
 			madeSquares.forEach(function (i) {
 				document.getElementById(i).style.background = player2Colour
 			})
+			var thisWinner = document.createElement("H2")
+			thisWinner.style.color = player2Colour
+			thisWinner.style.display = "inline"
+			thisWinner.innerHTML = "O"
+			document.getElementById("listOfResults").appendChild(thisWinner)
 		} else if (winner == "draw"){
-			displayText("Time limit reached. The game was a draw! Click here to restart.", "#000000")		
+			displayText("Time limit reached. The game was a draw! Click here to restart.", "#000000")
+			var thisWinner = document.createElement("H2")
+			thisWinner.style.color = "#000000"
+			thisWinner.style.display = "inline"
+			thisWinner.innerHTML = "O"
+			document.getElementById("listOfResults").appendChild(thisWinner)		
 		}
 	}
 
 	function restart (){
+		document.getElementById("listOfResults").innerHTML = ""
 		resetTimer()
+		document.getElementById("p1Plays").innerHTML = ""
+		document.getElementById("p2Plays").innerHTML = ""
+		p1TotalPLays = 0
+		p2TotalPLays = 0
 		gameOver = false
 		p1PlayedSquares = []
 		p2PlayedSquares = []
