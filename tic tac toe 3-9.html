@@ -1,7 +1,4 @@
-<!-- 
-	numero de jugadas
 
--->
 <!DOCTYPE html>
 <html>
 <head>
@@ -57,7 +54,6 @@
 			<option value="8">8</option>
 			<option value="9">9</option>
 		</select>
-		<button onclick="restart(),buildBoard()"> Start</button>
 		<br>
 		<br>
 		<label>Player 1 name:</label>
@@ -74,6 +70,9 @@
 			<input type="number" id="timeLimitNum" min = "1" oninput="this.value=(parseInt(this.value)||0)" style="width:50px">
 			<label id="timeLimitNum">mins</label>
 		</section>	
+		<br>
+		<br>
+		<button onclick="restart(),buildBoard()" style="width:100px;height:40px;font-size:15px"> Start</button>
 	</div>
 
 
@@ -96,6 +95,8 @@
 	p2Name = "Player 2" 
 	var p1TotalPLays = 0
 	var p2TotalPLays = 0
+	var last1SquareChange
+	var last2SquareChange
 
 	document.getElementById("p1Name").addEventListener("input", function(){
 		p1Name = document.getElementById("p1Name").value
@@ -195,7 +196,11 @@
 		var selectedTileNumber = document.getElementById("numberOfCounters").value
 		if (gameOver == false){
 			if(turn == "p1" && p1PlayedSquares.length < selectedTileNumber){
-				if (p1PlayedSquares.indexOf(squareNumber) == -1 && p2PlayedSquares.indexOf(squareNumber) == -1 ){
+				if(last1SquareChange == squareNumber){
+					document.getElementById((squareNumber)).style.background = player1Colour
+					p1PlayedSquares.push(squareNumber)
+				}
+				else if (p1PlayedSquares.indexOf(squareNumber) == -1 && p2PlayedSquares.indexOf(squareNumber) == -1){
 					document.getElementById((squareNumber)).style.background = player1Colour
 					p1PlayedSquares.push(squareNumber)
 					checkWinner()
@@ -210,6 +215,10 @@
 				}
 
 			}else if(turn == "p2" && p2PlayedSquares.length < selectedTileNumber){
+				if(last2SquareChange == squareNumber){
+					document.getElementById((squareNumber)).style.background = player2Colour
+					p2PlayedSquares.push(squareNumber)
+				}
 				if (p1PlayedSquares.indexOf(squareNumber) == -1 && p2PlayedSquares.indexOf(squareNumber) == -1 ){
 					document.getElementById((squareNumber)).style.background = player2Colour
 					p2PlayedSquares.push(squareNumber)
@@ -228,12 +237,14 @@
 					displayText(p1Name + ", please select a square to move.", player1Colour)
 				} else {
 					removeSquare(squareNumber, "p1")
+					last1SquareChange = squareNumber
 				}
 			} else if (turn == "p2" && p2PlayedSquares.length == selectedTileNumber){
 				if (p2PlayedSquares.indexOf(squareNumber) == -1){
 					displayText(p2Name + ", please select a square to move.", player2Colour)
 				} else {
 					removeSquare(squareNumber, "p2")
+					last2SquareChange = squareNumber
 				}
 			}
 		}	
@@ -520,7 +531,6 @@
 	}
 
 	function restart (){
-		document.getElementById("listOfResults").innerHTML = ""
 		resetTimer()
 		document.getElementById("p1Plays").innerHTML = ""
 		document.getElementById("p2Plays").innerHTML = ""
