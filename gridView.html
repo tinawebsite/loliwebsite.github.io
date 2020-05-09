@@ -56,8 +56,28 @@
 		var whichSide
 		var squareNum
 		var otherSquareNum
+		var fiveColours = []
 
+		var black = "#000000"
+		var grey = "#858585"
+		var purple = "#8000ff" 
+		var yellow = "#fff700"
+		var white = "#ffffff"
+		var pink = "#ff8ad0"
+		var red = "#ff0000"
+		var blue = "#0000ff"
+		var green = "#00ff00"
+
+		var colourList = [black,grey,purple,yellow,white,pink,red,blue,green]
+		v = 1
+		while(v <= 5){
+			var randIndex = Math.floor(Math.random() * 9)
+			fiveColours.push(colourList[randIndex])
+			v++
+		}
+ 	
 		joinSquares1()
+		colourSquares()
 
 		function joinSquares1(){
 			a  = true
@@ -219,6 +239,25 @@
 				noRight.push(squareNum)
 				noBottom.push(squareNum)
 				noLeft.push(squareNum)
+			}
+		}
+
+		function colourSquares(){
+			i = 1
+			for(i = 1; i <= 24; i++){
+				colour = Math.floor(Math.random() * 5) + 1
+
+				if(colour == 1){
+					document.getElementById(JSON.stringify(i)).style.backgroundColor = fiveColours[0]
+				} else if (colour == 2){
+					document.getElementById(JSON.stringify(i)).style.backgroundColor = fiveColours[1]
+				} else if (colour == 3){
+					document.getElementById(JSON.stringify(i)).style.backgroundColor = fiveColours[2]
+				} else if (colour == 4){
+					document.getElementById(JSON.stringify(i)).style.backgroundColor = fiveColours[3]
+				} else if (colour == 5){
+					document.getElementById(JSON.stringify(i)).style.backgroundColor = fiveColours[4]
+				}
 			}
 		}
 	</script>
