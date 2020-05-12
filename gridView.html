@@ -65,7 +65,7 @@
 
 		var allPairs = []
 
-		var grey = "#858585"
+		/*var grey = "#858585"
 		var purple = "#8000ff" 
 		var yellow = "#fff700"
 		var white = "#ffffff"
@@ -80,153 +80,63 @@
 			var randIndex = Math.floor(Math.random() * 8)
 			fiveColours.push(colourList[randIndex])
 			v++
-		}
+		}*/
  	
-		joinSquares1()
-		colourSquares()
+		joinSquares()
+		//colourSquares()
 
-		function joinSquares1(){
+		function joinSquares(){
 			a  = true
-			squareNum = Math.floor(Math.random() * 24) + 1
-			while(a == true){
-				whichSide = Math.floor(Math.random() * 4) + 1
+			for (var i = 1; i <= 4; i++){			
+				while(a == true){
+					squareNum = Math.floor(Math.random() * 24) + 1
+					whichSide = Math.floor(Math.random() * 4) + 1
 
-				if(whichSide == 1 && noTop.indexOf(squareNum) == -1 && allPairs.indexOf(squareNum) == -1){
 					otherSquareNum = squareNum - 6
-					document.getElementById(JSON.stringify(squareNum)).style = "border-top: 1px solid rgba(255, 255, 255, 0.8)"
-					document.getElementById(JSON.stringify(otherSquareNum)).style = "border-bottom: 1px solid rgba(255, 255, 255, 0.8)"
-					a = false
-				} else if (whichSide == 2 && noRight.indexOf(squareNum) == -1 && allPairs.indexOf(squareNum) == -1){
+					if(whichSide == 1 && noTop.indexOf(squareNum) == -1 && noBottom.indexOf(otherSquareNum) == -1){
+						document.getElementById(JSON.stringify(squareNum)).style = "border-top: 1px solid rgba(255, 255, 255, 0.8)"
+						document.getElementById(JSON.stringify(otherSquareNum)).style = "border-bottom: 1px solid rgba(255, 255, 255, 0.8)"
+						a = false
+						addToLists(squareNum, otherSquareNum)
+					} 
 					otherSquareNum = squareNum + 1
-					document.getElementById(JSON.stringify(squareNum)).style = "border-right: 1px solid rgba(255, 255, 255, 0.8)"
-					document.getElementById(JSON.stringify(otherSquareNum)).style = "border-left: 1px solid rgba(255, 255, 255, 0.8)"
-					a = false
-				}else if(whichSide == 3 && noBottom.indexOf(squareNum) == -1 && allPairs.indexOf(squareNum) == -1){
+					if(whichSide == 2 && noRight.indexOf(squareNum) == -1 && noLeft.indexOf(otherSquareNum) == -1){
+						document.getElementById(JSON.stringify(squareNum)).style = "border-right: 1px solid rgba(255, 255, 255, 0.8)"
+						document.getElementById(JSON.stringify(otherSquareNum)).style = "border-left: 1px solid rgba(255, 255, 255, 0.8)"
+						a = false
+						addToLists(squareNum, otherSquareNum)
+					}
 					otherSquareNum = squareNum + 6
-					document.getElementById(JSON.stringify(squareNum)).style = "border-bottom: 1px solid rgba(255, 255, 255, 0.8)"
-					document.getElementById(JSON.stringify(otherSquareNum)).style = "border-top: 1px solid rgba(255, 255, 255, 0.8)"
-					a = false
-				}else if(whichSide == 4 && noLeft.indexOf(squareNum) == -1 && allPairs.indexOf(squareNum) == -1){
+					if(whichSide == 3 && noBottom.indexOf(squareNum) == -1 && noTop.indexOf(otherSquareNum) == -1){
+						document.getElementById(JSON.stringify(squareNum)).style = "border-bottom: 1px solid rgba(255, 255, 255, 0.8)"
+						document.getElementById(JSON.stringify(otherSquareNum)).style = "border-top: 1px solid rgba(255, 255, 255, 0.8)"
+						a = false
+						addToLists(squareNum, otherSquareNum)
+					}
 					otherSquareNum = squareNum - 1
-					document.getElementById(JSON.stringify(squareNum)).style = "border-left: 1px solid rgba(255, 255, 255, 0.8)"
-					document.getElementById(JSON.stringify(otherSquareNum)).style = "border-right: 1px solid rgba(255, 255, 255, 0.8)"
-					a = false
+					if(whichSide == 4 && noLeft.indexOf(squareNum) == -1 && noRight.indexOf(otherSquareNum) == -1){
+						document.getElementById(JSON.stringify(squareNum)).style = "border-left: 1px solid rgba(255, 255, 255, 0.8)"
+						document.getElementById(JSON.stringify(otherSquareNum)).style = "border-right: 1px solid rgba(255, 255, 255, 0.8)"
+						a = false
+						addToLists(squareNum, otherSquareNum)
+					}
 				}
-
-				pair1.push(squareNum)
-				pair1.push(otherSquareNum)
-				allPairs.push(squareNum)
-				allPairs.push(otherSquareNum)
-			}
-			joinSquares2()
-		}
-
-		function joinSquares2(){
-			a  = true
-			while(a == true){
-				squareNum = Math.floor(Math.random() * 24) + 1
-				whichSide = Math.floor(Math.random() * 4) + 1
-
-				if(whichSide == 1 && noTop.indexOf(squareNum) == -1 && allPairs.indexOf(squareNum) == -1){
-					otherSquareNum = squareNum - 6
-					document.getElementById(JSON.stringify(squareNum)).style = "border-top: 1px solid rgba(255, 255, 255, 0.8)"
-					document.getElementById(JSON.stringify(otherSquareNum)).style = "border-bottom: 1px solid rgba(255, 255, 255, 0.8)"
-					a = false
-				} else if (whichSide == 2 && noRight.indexOf(squareNum) == -1 && allPairs.indexOf(squareNum) == -1){
-					otherSquareNum = squareNum + 1
-					document.getElementById(JSON.stringify(squareNum)).style = "border-right: 1px solid rgba(255, 255, 255, 0.8)"
-					document.getElementById(JSON.stringify(otherSquareNum)).style = "border-left: 1px solid rgba(255, 255, 255, 0.8)"
-					a = false
-				}else if(whichSide == 3 && noBottom.indexOf(squareNum) == -1 && allPairs.indexOf(squareNum) == -1){
-					otherSquareNum = squareNum + 6
-					document.getElementById(JSON.stringify(squareNum)).style = "border-bottom: 1px solid rgba(255, 255, 255, 0.8)"
-					document.getElementById(JSON.stringify(otherSquareNum)).style = "border-top: 1px solid rgba(255, 255, 255, 0.8)"
-					a = false
-				}else if(whichSide == 4 && noLeft.indexOf(squareNum) == -1 && allPairs.indexOf(squareNum) == -1){
-					otherSquareNum = squareNum - 1
-					document.getElementById(JSON.stringify(squareNum)).style = "border-left: 1px solid rgba(255, 255, 255, 0.8)"
-					document.getElementById(JSON.stringify(otherSquareNum)).style = "border-right: 1px solid rgba(255, 255, 255, 0.8)"
-					a = false
-				}
-
-				pair2.push(squareNum)
-				pair2.push(otherSquareNum)
-			}
-			joinSquares3()
-		}
-
-		function joinSquares3(){
-			a  = true
-			while(a == true){
-				squareNum = Math.floor(Math.random() * 24) + 1
-				whichSide = Math.floor(Math.random() * 4) + 1
-
-				if(whichSide == 1 && noTop.indexOf(squareNum) == -1 && allPairs.indexOf(squareNum) == -1){
-					otherSquareNum = squareNum - 6
-					document.getElementById(JSON.stringify(squareNum)).style = "border-top: 1px solid rgba(255, 255, 255, 0.8)"
-					document.getElementById(JSON.stringify(otherSquareNum)).style = "border-bottom: 1px solid rgba(255, 255, 255, 0.8)"
-					a = false
-				} else if (whichSide == 2 && noRight.indexOf(squareNum) == -1 && allPairs.indexOf(squareNum) == -1){
-					otherSquareNum = squareNum + 1
-					document.getElementById(JSON.stringify(squareNum)).style = "border-right: 1px solid rgba(255, 255, 255, 0.8)"
-					document.getElementById(JSON.stringify(otherSquareNum)).style = "border-left: 1px solid rgba(255, 255, 255, 0.8)"
-					a = false
-				}else if(whichSide == 3 && noBottom.indexOf(squareNum) == -1 && allPairs.indexOf(squareNum) == -1){
-					otherSquareNum = squareNum + 6
-					document.getElementById(JSON.stringify(squareNum)).style = "border-bottom: 1px solid rgba(255, 255, 255, 0.8)"
-					document.getElementById(JSON.stringify(otherSquareNum)).style = "border-top: 1px solid rgba(255, 255, 255, 0.8)"
-					a = false
-				}else if(whichSide == 4 && noLeft.indexOf(squareNum) == -1 && allPairs.indexOf(squareNum) == -1){
-					otherSquareNum = squareNum - 1
-					document.getElementById(JSON.stringify(squareNum)).style = "border-left: 1px solid rgba(255, 255, 255, 0.8)"
-					document.getElementById(JSON.stringify(otherSquareNum)).style = "border-right: 1px solid rgba(255, 255, 255, 0.8)"
-					a = false
-				}
-
-				pair3.push(squareNum)
-				pair3.push(otherSquareNum)
-				allPairs.push(squareNum)
-				allPairs.push(otherSquareNum)
-			}
-			joinSquares4()
-		}
-
-		function joinSquares4(){
-			a  = true
-			while(a == true){
-				squareNum = Math.floor(Math.random() * 24) + 1
-				whichSide = Math.floor(Math.random() * 4) + 1
-
-				if(whichSide == 1 && noTop.indexOf(squareNum) == -1  && allPairs.indexOf(squareNum) == -1){
-					otherSquareNum = squareNum - 6
-					document.getElementById(JSON.stringify(squareNum)).style = "border-top: 1px solid rgba(255, 255, 255, 0.8)"
-					document.getElementById(JSON.stringify(otherSquareNum)).style = "border-bottom: 1px solid rgba(255, 255, 255, 0.8)"
-					a = false
-				} else if (whichSide == 2 && noRight.indexOf(squareNum) == -1  && allPairs.indexOf(squareNum) == -1){
-					otherSquareNum = squareNum + 1
-					document.getElementById(JSON.stringify(squareNum)).style = "border-right: 1px solid rgba(255, 255, 255, 0.8)"
-					document.getElementById(JSON.stringify(otherSquareNum)).style = "border-left: 1px solid rgba(255, 255, 255, 0.8)"
-					a = false
-				}else if(whichSide == 3 && noBottom.indexOf(squareNum) == -1  && allPairs.indexOf(squareNum) == -1){
-					otherSquareNum = squareNum + 6
-					document.getElementById(JSON.stringify(squareNum)).style = "border-bottom: 1px solid rgba(255, 255, 255, 0.8)"
-					document.getElementById(JSON.stringify(otherSquareNum)).style = "border-top: 1px solid rgba(255, 255, 255, 0.8)"
-					a = false
-				}else if(whichSide == 4 && noLeft.indexOf(squareNum) == -1  && allPairs.indexOf(squareNum) == -1){
-					otherSquareNum = squareNum - 1
-					document.getElementById(JSON.stringify(squareNum)).style = "border-left: 1px solid rgba(255, 255, 255, 0.8)"
-					document.getElementById(JSON.stringify(otherSquareNum)).style = "border-right: 1px solid rgba(255, 255, 255, 0.8)"
-					a = false
-				}
-
-				pair4.push(squareNum)
-				pair4.push(otherSquareNum)
-				allPairs.push(squareNum)
-				allPairs.push(otherSquareNum)
+				a = true
 			}
 		}
 
-		function colourSquares(){
+		function addToLists(squareNum, otherSquareNum){
+			noLeft.push(squareNum)
+			noLeft.push(otherSquareNum)			
+			noRight.push(squareNum)
+			noRight.push(otherSquareNum)
+			noTop.push(squareNum)
+			noTop.push(otherSquareNum)			
+			noBottom.push(squareNum)
+			noBottom.push(otherSquareNum)
+		}
+		
+		/*function colourSquares(){
 			i = 1
 			for(i = 1; i <= 24; i++){
 				colour = Math.floor(Math.random() * 5) + 1
@@ -264,6 +174,8 @@
 					}
 				}
 			}
-		}
+		} */
+
+
 	</script>
 </html>
