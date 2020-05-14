@@ -58,14 +58,10 @@
 		var otherSquareNum
 		var fiveColours = []
 
-		var pair1 = []
-		var pair2 = []
-		var pair3 = []
-		var pair4 = []
+		var pairs = {pair1:[0,0], pair2:[0,0], pair3:[0,0], pair4:[0,0]}
+		var listOfAllJoins = []
 
-		var allPairs = []
-
-		/*var grey = "#858585"
+		var grey = "#858585"
 		var purple = "#8000ff" 
 		var yellow = "#fff700"
 		var white = "#ffffff"
@@ -80,14 +76,14 @@
 			var randIndex = Math.floor(Math.random() * 8)
 			fiveColours.push(colourList[randIndex])
 			v++
-		}*/
+		}
  	
 		joinSquares()
-		//colourSquares()
+		colourSquares()
 
 		function joinSquares(){
 			a  = true
-			for (var i = 1; i <= 4; i++){			
+			for (var pairNum = 1; pairNum <= 4; pairNum++){			
 				while(a == true){
 					squareNum = Math.floor(Math.random() * 24) + 1
 					whichSide = Math.floor(Math.random() * 4) + 1
@@ -98,6 +94,7 @@
 						document.getElementById(JSON.stringify(otherSquareNum)).style = "border-bottom: 1px solid rgba(255, 255, 255, 0.8)"
 						a = false
 						addToLists(squareNum, otherSquareNum)
+						break
 					} 
 					otherSquareNum = squareNum + 1
 					if(whichSide == 2 && noRight.indexOf(squareNum) == -1 && noLeft.indexOf(otherSquareNum) == -1){
@@ -105,6 +102,7 @@
 						document.getElementById(JSON.stringify(otherSquareNum)).style = "border-left: 1px solid rgba(255, 255, 255, 0.8)"
 						a = false
 						addToLists(squareNum, otherSquareNum)
+						break
 					}
 					otherSquareNum = squareNum + 6
 					if(whichSide == 3 && noBottom.indexOf(squareNum) == -1 && noTop.indexOf(otherSquareNum) == -1){
@@ -112,6 +110,7 @@
 						document.getElementById(JSON.stringify(otherSquareNum)).style = "border-top: 1px solid rgba(255, 255, 255, 0.8)"
 						a = false
 						addToLists(squareNum, otherSquareNum)
+						break
 					}
 					otherSquareNum = squareNum - 1
 					if(whichSide == 4 && noLeft.indexOf(squareNum) == -1 && noRight.indexOf(otherSquareNum) == -1){
@@ -119,10 +118,33 @@
 						document.getElementById(JSON.stringify(otherSquareNum)).style = "border-right: 1px solid rgba(255, 255, 255, 0.8)"
 						a = false
 						addToLists(squareNum, otherSquareNum)
+						break
 					}
 				}
 				a = true
+				if(pairNum == 1){
+					pairs.pair1[0] = squareNum
+					pairs.pair1[1] = otherSquareNum
+					listOfAllJoins.push(squareNum)
+					listOfAllJoins.push(otherSquareNum)
+				} else if(pairNum == 2){
+					pairs.pair2[0] = squareNum
+					pairs.pair2[1] = otherSquareNum
+					listOfAllJoins.push(squareNum)
+					listOfAllJoins.push(otherSquareNum)
+				} else if(pairNum == 3){
+					pairs.pair3[0] = squareNum
+					pairs.pair3[1] = otherSquareNum
+					listOfAllJoins.push(squareNum)
+					listOfAllJoins.push(otherSquareNum)
+				} else if(pairNum == 4){
+					pairs.pair4[0] = squareNum
+					pairs.pair4[1] = otherSquareNum
+					listOfAllJoins.push(squareNum)
+					listOfAllJoins.push(otherSquareNum)
+				}
 			}
+			console.log(pairs)
 		}
 
 		function addToLists(squareNum, otherSquareNum){
@@ -136,7 +158,7 @@
 			noBottom.push(otherSquareNum)
 		}
 		
-		/*function colourSquares(){
+		function colourSquares(){
 			i = 1
 			for(i = 1; i <= 24; i++){
 				colour = Math.floor(Math.random() * 5) + 1
@@ -152,29 +174,29 @@
 				} else if (colour == 5){
 					currentColour = fiveColours[4]
 				}
-				if(allPairs.indexOf(i) == -1){
+				if(listOfAllJoins.indexOf(i) == -1){
 					document.getElementById(JSON.stringify(i)).style.backgroundColor = currentColour
 				} else {
-					if(pair1.indexOf(i) != -1){
-						for(f in pair1){
-							document.getElementById(JSON.stringify(f)).style.backgroundColor = "#4d023b"
+					if(pairs.pair1.indexOf(i) != -1){
+						for(f in pairs.pair1){
+							document.getElementById(JSON.stringify(pairs.pair1[f])).style.backgroundColor = currentColour
 						}
-					} else if(pair2.indexOf(i) != -1){
-						for(f in pair2){
-							document.getElementById(JSON.stringify(f)).style.backgroundColor = "#4d023b"
+					} else if(pairs.pair2.indexOf(i) != -1){
+						for(f in pairs.pair2){
+							document.getElementById(JSON.stringify(pairs.pair2[f])).style.backgroundColor = currentColour
 						}
-					} else if(pair3.indexOf(i) != -1){
-						for(f in pair3){
-							document.getElementById(JSON.stringify(f)).style.backgroundColor = "#4d023b"
+					} else if(pairs.pair3.indexOf(i) != -1){
+						for(f in pairs.pair3){
+							document.getElementById(JSON.stringify(pairs.pair3[f])).style.backgroundColor = currentColour
 						}
-					} else if(pair4.indexOf(i) != -1){
-						for(f in pair4){
-							document.getElementById(JSON.stringify(f)).style.backgroundColor = "#4d023b"
+					} else if(pairs.pair4.indexOf(i) != -1){
+						for(f in pairs.pair4){
+							document.getElementById(JSON.stringify(pairs.pair4[f])).style.backgroundColor = currentColour
 						}
 					}
 				}
 			}
-		} */
+		} 
 
 
 	</script>
