@@ -3,9 +3,6 @@
 <head>
 <title>Colours</title>
 <style>
-	:root {
-	  --animation-time: 2s; 
-	}
 	.grid-container {
 		display: grid;
 		grid-template-columns: auto auto auto auto auto auto;
@@ -21,27 +18,15 @@
 	  	font-size: 30px;
 	  	text-align: center;
         transition-property: background;
-        transition-duration: var(--animation-time);
+        transition-duration: 3s;
         transition-timing-function: linear;
-
-		/*animation-name: example;
-	  	animation-duration: 4s;
-  		animation-iteration-count: infinite;
-  		animation-timing-function: linear; */
     }
-    .box9:active{
+    .boxes:active{
         background: var(--box9Colour);
     }
-    /*.box9:hover{
-        animation-name: example;
-	  	animation-duration: 4s;
-  		animation-iteration-count: infinite;
-  		animation-timing-function: linear; 
+    div:hover{
+        transform: rotate(80deg)
 	}
-	@keyframes example {
-		from {transform:rotate(0deg);}
-	 	to {transform:rotate(360deg);}
-	}*/
 
 
 }
@@ -49,7 +34,7 @@
 </style>
 </head>
 	<body>
-		<div class="grid-container" id = "gridContainer">
+		<span class="grid-container" id = "gridContainer">
 			<div id="1" class="boxes"></div>
 			<div id="2" class="boxes"></div>
 			<div id="3" class="boxes"></div>
@@ -74,7 +59,7 @@
 			<div id="22" class="boxes"></div>
 			<div id="23" class="boxes"></div>
 			<div id="24" class="boxes"></div>
-		</div>
+		</span>
 	</body>
 
 	<script>
@@ -84,15 +69,15 @@
 		var grey = "#858585"
 		var purple = "#8000ff" 
 		var yellow = "#fff700"
-		var white = "#ffffff"
+		var orange = "#ff6600"
 		var pink = "#ff8ad0"
 		var red = "#ff0000"
 		var blue = "#0000ff"
 		var green = "#00ff00"
 
-		var colourList = [grey,purple,yellow,white,pink,red,blue,green]
+		var colourList = [grey,purple,yellow,orange,pink,red,blue,green]
 
-		myTimer = 0
+		/*myTimer = 0
 		timeElapsed	= 0
 		myTimer = setInterval(function(){
 	        timeElapsed += 1;
@@ -103,7 +88,7 @@
 	        	timeElapsed	= 0
 	        }
 
-	    }, 1000) ;
+	    }, 1000) ;*/
 
 
 
