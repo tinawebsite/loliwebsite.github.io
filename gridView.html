@@ -1,65 +1,85 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<style>
-			.grid-container {
-	  			display: grid;
-	  			grid-template-columns: auto auto auto auto auto auto;
-			}
-			.grid-item {
-	  			background-color: rgba(255, 255, 255, 0.8);
-	  			border-right: 1px solid rgba(0, 0, 0, 0.8);
-	  			border-left: 1px solid rgba(0, 0, 0, 0.8);
-	  			border-bottom: 1px solid rgba(0, 0, 0, 0.8);
-	  			border-top: 1px solid rgba(0, 0, 0, 0.8);
-	  			padding: 20px;
-	  			height:50px;
-	  			font-size: 30px;
-	  			text-align: center;
-			}
-		</style>
-	</head>
+<head>
+<title>Colours</title>
+<style>
+	:root {
+	  --animation-time: 2s; 
+	}
+	.grid-container {
+		display: grid;
+		grid-template-columns: auto auto auto auto auto auto;
+	}
+
+    .boxes {
+		border-right: 1px solid rgba(0, 0, 0);
+		border-left: 1px solid rgba(0, 0, 0);
+		border-bottom: 1px solid rgba(0, 0, 0);
+		border-top: 1px solid rgba(0, 0, 0);
+		padding: 20px;
+		height:50px;
+	  	font-size: 30px;
+	  	text-align: center;
+        transition-property: background;
+        transition-duration: var(--animation-time);
+        transition-timing-function: linear;
+
+		/*animation-name: example;
+	  	animation-duration: 4s;
+  		animation-iteration-count: infinite;
+  		animation-timing-function: linear; */
+    }
+    .box9:active{
+        background: var(--box9Colour);
+    }
+    /*.box9:hover{
+        animation-name: example;
+	  	animation-duration: 4s;
+  		animation-iteration-count: infinite;
+  		animation-timing-function: linear; 
+	}
+	@keyframes example {
+		from {transform:rotate(0deg);}
+	 	to {transform:rotate(360deg);}
+	}*/
+
+
+}
+
+</style>
+</head>
 	<body>
 		<div class="grid-container" id = "gridContainer">
-			<div id="1" class="grid-item"></div>
-			<div id="2" class="grid-item"></div>
-			<div id="3" class="grid-item"></div>
-			<div id="4" class="grid-item"></div>
-			<div id="5" class="grid-item"></div>
-			<div id="6" class="grid-item"></div>
-			<div id="7" class="grid-item"></div>
-			<div id="8" class="grid-item"></div>
-			<div id="9" class="grid-item"></div>
-			<div id="10" class="grid-item"></div>
-			<div id="11" class="grid-item"></div>
-			<div id="12" class="grid-item"></div>
-			<div id="13" class="grid-item"></div>
-			<div id="14" class="grid-item"></div>
-			<div id="15" class="grid-item"></div>
-			<div id="16" class="grid-item"></div>
-			<div id="17" class="grid-item"></div>
-			<div id="18" class="grid-item"></div>
-			<div id="19" class="grid-item"></div>
-			<div id="20" class="grid-item"></div>
-			<div id="21" class="grid-item"></div>
-			<div id="22" class="grid-item"></div>
-			<div id="23" class="grid-item"></div>
-			<div id="24" class="grid-item"></div>
+			<div id="1" class="boxes"></div>
+			<div id="2" class="boxes"></div>
+			<div id="3" class="boxes"></div>
+			<div id="4" class="boxes"></div>
+			<div id="5" class="boxes"></div>
+			<div id="6" class="boxes"></div>
+			<div id="7" class="boxes"></div>
+			<div id="8" class="boxes"></div>
+			<div id="9" class="boxes"></div>
+			<div id="10" class="boxes"></div>
+			<div id="11" class="boxes"></div>
+			<div id="12" class="boxes"></div>
+			<div id="13" class="boxes"></div>
+			<div id="14" class="boxes"></div>
+			<div id="15" class="boxes"></div>
+			<div id="16" class="boxes"></div>
+			<div id="17" class="boxes"></div>
+			<div id="18" class="boxes"></div>
+			<div id="19" class="boxes"></div>
+			<div id="20" class="boxes"></div>
+			<div id="21" class="boxes"></div>
+			<div id="22" class="boxes"></div>
+			<div id="23" class="boxes"></div>
+			<div id="24" class="boxes"></div>
 		</div>
 	</body>
 
 	<script>
-		var noLeft = [1,7,13,19]
-		var noRight = [6,12,18,24]
-		var noTop = [1,2,3,4,,5,6]
-		var noBottom = [19,20,21,22,23,24]
-		var whichSide
-		var squareNum
-		var otherSquareNum
 		var fiveColours = []
-
-		var pairs = {pair1:[0,0], pair2:[0,0], pair3:[0,0], pair4:[0,0]}
-		var listOfAllJoins = []
+		var boxColour = "#ff9d00"
 
 		var grey = "#858585"
 		var purple = "#8000ff" 
@@ -71,133 +91,621 @@
 		var green = "#00ff00"
 
 		var colourList = [grey,purple,yellow,white,pink,red,blue,green]
-		v = 1
-		while(v <= 5){
-			var randIndex = Math.floor(Math.random() * 8)
-			fiveColours.push(colourList[randIndex])
-			v++
-		}
- 	
-		joinSquares()
-		colourSquares()
 
-		function joinSquares(){
-			a  = true
-			for (var pairNum = 1; pairNum <= 4; pairNum++){			
-				while(a == true){
-					squareNum = Math.floor(Math.random() * 24) + 1
-					whichSide = Math.floor(Math.random() * 4) + 1
+		myTimer = 0
+		timeElapsed	= 0
+		myTimer = setInterval(function(){
+	        timeElapsed += 1;
+	        if(timeElapsed	== 2) {
+				var time = Math.floor(Math.random() * 4) + 1
+				var box = document.querySelector('div.boxes');
+				box.style.setProperty('--animation-time', time +'s');
+	        	timeElapsed	= 0
+	        }
 
-					otherSquareNum = squareNum - 6
-					if(whichSide == 1 && noTop.indexOf(squareNum) == -1 && noBottom.indexOf(otherSquareNum) == -1){
-						document.getElementById(JSON.stringify(squareNum)).style = "border-top: 1px solid rgba(255, 255, 255, 0.8)"
-						document.getElementById(JSON.stringify(otherSquareNum)).style = "border-bottom: 1px solid rgba(255, 255, 255, 0.8)"
-						a = false
-						addToLists(squareNum, otherSquareNum)
-						break
-					} 
-					otherSquareNum = squareNum + 1
-					if(whichSide == 2 && noRight.indexOf(squareNum) == -1 && noLeft.indexOf(otherSquareNum) == -1){
-						document.getElementById(JSON.stringify(squareNum)).style = "border-right: 1px solid rgba(255, 255, 255, 0.8)"
-						document.getElementById(JSON.stringify(otherSquareNum)).style = "border-left: 1px solid rgba(255, 255, 255, 0.8)"
-						a = false
-						addToLists(squareNum, otherSquareNum)
-						break
-					}
-					otherSquareNum = squareNum + 6
-					if(whichSide == 3 && noBottom.indexOf(squareNum) == -1 && noTop.indexOf(otherSquareNum) == -1){
-						document.getElementById(JSON.stringify(squareNum)).style = "border-bottom: 1px solid rgba(255, 255, 255, 0.8)"
-						document.getElementById(JSON.stringify(otherSquareNum)).style = "border-top: 1px solid rgba(255, 255, 255, 0.8)"
-						a = false
-						addToLists(squareNum, otherSquareNum)
-						break
-					}
-					otherSquareNum = squareNum - 1
-					if(whichSide == 4 && noLeft.indexOf(squareNum) == -1 && noRight.indexOf(otherSquareNum) == -1){
-						document.getElementById(JSON.stringify(squareNum)).style = "border-left: 1px solid rgba(255, 255, 255, 0.8)"
-						document.getElementById(JSON.stringify(otherSquareNum)).style = "border-right: 1px solid rgba(255, 255, 255, 0.8)"
-						a = false
-						addToLists(squareNum, otherSquareNum)
-						break
-					}
-				}
-				a = true
-				if(pairNum == 1){
-					pairs.pair1[0] = squareNum
-					pairs.pair1[1] = otherSquareNum
-					listOfAllJoins.push(squareNum)
-					listOfAllJoins.push(otherSquareNum)
-				} else if(pairNum == 2){
-					pairs.pair2[0] = squareNum
-					pairs.pair2[1] = otherSquareNum
-					listOfAllJoins.push(squareNum)
-					listOfAllJoins.push(otherSquareNum)
-				} else if(pairNum == 3){
-					pairs.pair3[0] = squareNum
-					pairs.pair3[1] = otherSquareNum
-					listOfAllJoins.push(squareNum)
-					listOfAllJoins.push(otherSquareNum)
-				} else if(pairNum == 4){
-					pairs.pair4[0] = squareNum
-					pairs.pair4[1] = otherSquareNum
-					listOfAllJoins.push(squareNum)
-					listOfAllJoins.push(otherSquareNum)
-				}
+	    }, 1000) ;
+
+
+
+		document.getElementById("1").addEventListener("click", function(){
+			box = document.getElementById("1")
+  			var currentColour
+  			colour = Math.floor(Math.random() * 8) + 1
+			if(colour == 1){
+				currentColour = colourList[0]
+			} else if (colour == 2){
+				currentColour = colourList[1]
+			} else if (colour == 3){
+				currentColour = colourList[2]
+			} else if (colour == 4){
+				currentColour = colourList[3]
+			} else if (colour == 5){
+				currentColour = colourList[4]
+			} else if (colour == 6){
+				currentColour = colourList[5]
+			} else if (colour == 7){
+				currentColour = colourList[6]
+			} else if (colour == 8){
+				currentColour = colourList[7]
 			}
-			console.log(pairs)
-		}
+			boxColour = currentColour
+			box.style.backgroundColor = boxColour
+		})
 
-		function addToLists(squareNum, otherSquareNum){
-			noLeft.push(squareNum)
-			noLeft.push(otherSquareNum)			
-			noRight.push(squareNum)
-			noRight.push(otherSquareNum)
-			noTop.push(squareNum)
-			noTop.push(otherSquareNum)			
-			noBottom.push(squareNum)
-			noBottom.push(otherSquareNum)
-		}
-		
-		function colourSquares(){
-			i = 1
-			for(i = 1; i <= 24; i++){
-				colour = Math.floor(Math.random() * 5) + 1
-				var currentColour
-				if(colour == 1){
-					currentColour = fiveColours[0]
-				} else if (colour == 2){
-					currentColour = fiveColours[1]
-				} else if (colour == 3){
-					currentColour = fiveColours[2]
-				} else if (colour == 4){
-					currentColour = fiveColours[3]
-				} else if (colour == 5){
-					currentColour = fiveColours[4]
-				}
-				if(listOfAllJoins.indexOf(i) == -1){
-					document.getElementById(JSON.stringify(i)).style.backgroundColor = currentColour
-				} else {
-					if(pairs.pair1.indexOf(i) != -1){
-						for(f in pairs.pair1){
-							document.getElementById(JSON.stringify(pairs.pair1[f])).style.backgroundColor = currentColour
-						}
-					} else if(pairs.pair2.indexOf(i) != -1){
-						for(f in pairs.pair2){
-							document.getElementById(JSON.stringify(pairs.pair2[f])).style.backgroundColor = currentColour
-						}
-					} else if(pairs.pair3.indexOf(i) != -1){
-						for(f in pairs.pair3){
-							document.getElementById(JSON.stringify(pairs.pair3[f])).style.backgroundColor = currentColour
-						}
-					} else if(pairs.pair4.indexOf(i) != -1){
-						for(f in pairs.pair4){
-							document.getElementById(JSON.stringify(pairs.pair4[f])).style.backgroundColor = currentColour
-						}
-					}
-				}
+		document.getElementById("2").addEventListener("click", function(){
+			box = document.getElementById("2")
+  			var currentColour
+  			colour = Math.floor(Math.random() * 8) + 1
+			if(colour == 1){
+				currentColour = colourList[0]
+			} else if (colour == 2){
+				currentColour = colourList[1]
+			} else if (colour == 3){
+				currentColour = colourList[2]
+			} else if (colour == 4){
+				currentColour = colourList[3]
+			} else if (colour == 5){
+				currentColour = colourList[4]
+			} else if (colour == 6){
+				currentColour = colourList[5]
+			} else if (colour == 7){
+				currentColour = colourList[6]
+			} else if (colour == 8){
+				currentColour = colourList[7]
 			}
-		} 
+			boxColour = currentColour
+			box.style.backgroundColor = boxColour
+		})
 
+		document.getElementById("3").addEventListener("click", function(){
+			box = document.getElementById("3")
+  			var currentColour
+  			colour = Math.floor(Math.random() * 8) + 1
+			if(colour == 1){
+				currentColour = colourList[0]
+			} else if (colour == 2){
+				currentColour = colourList[1]
+			} else if (colour == 3){
+				currentColour = colourList[2]
+			} else if (colour == 4){
+				currentColour = colourList[3]
+			} else if (colour == 5){
+				currentColour = colourList[4]
+			} else if (colour == 6){
+				currentColour = colourList[5]
+			} else if (colour == 7){
+				currentColour = colourList[6]
+			} else if (colour == 8){
+				currentColour = colourList[7]
+			}
+			boxColour = currentColour
+			box.style.backgroundColor = boxColour
+		})
+
+		document.getElementById("4").addEventListener("click", function(){
+			box = document.getElementById("4")
+  			var currentColour
+  			colour = Math.floor(Math.random() * 8) + 1
+			if(colour == 1){
+				currentColour = colourList[0]
+			} else if (colour == 2){
+				currentColour = colourList[1]
+			} else if (colour == 3){
+				currentColour = colourList[2]
+			} else if (colour == 4){
+				currentColour = colourList[3]
+			} else if (colour == 5){
+				currentColour = colourList[4]
+			} else if (colour == 6){
+				currentColour = colourList[5]
+			} else if (colour == 7){
+				currentColour = colourList[6]
+			} else if (colour == 8){
+				currentColour = colourList[7]
+			}
+			boxColour = currentColour
+			box.style.backgroundColor = boxColour
+		})
+
+		document.getElementById("5").addEventListener("click", function(){
+			box = document.getElementById("5")
+  			var currentColour
+  			colour = Math.floor(Math.random() * 8) + 1
+			if(colour == 1){
+				currentColour = colourList[0]
+			} else if (colour == 2){
+				currentColour = colourList[1]
+			} else if (colour == 3){
+				currentColour = colourList[2]
+			} else if (colour == 4){
+				currentColour = colourList[3]
+			} else if (colour == 5){
+				currentColour = colourList[4]
+			} else if (colour == 6){
+				currentColour = colourList[5]
+			} else if (colour == 7){
+				currentColour = colourList[6]
+			} else if (colour == 8){
+				currentColour = colourList[7]
+			}
+			boxColour = currentColour
+			box.style.backgroundColor = boxColour
+		})
+
+		document.getElementById("6").addEventListener("click", function(){
+			box = document.getElementById("6")
+  			var currentColour
+  			colour = Math.floor(Math.random() * 8) + 1
+			if(colour == 1){
+				currentColour = colourList[0]
+			} else if (colour == 2){
+				currentColour = colourList[1]
+			} else if (colour == 3){
+				currentColour = colourList[2]
+			} else if (colour == 4){
+				currentColour = colourList[3]
+			} else if (colour == 5){
+				currentColour = colourList[4]
+			} else if (colour == 6){
+				currentColour = colourList[5]
+			} else if (colour == 7){
+				currentColour = colourList[6]
+			} else if (colour == 8){
+				currentColour = colourList[7]
+			}
+			boxColour = currentColour
+			box.style.backgroundColor = boxColour
+		})
+
+		document.getElementById("7").addEventListener("click", function(){
+			box = document.getElementById("7")
+  			var currentColour
+  			colour = Math.floor(Math.random() * 8) + 1
+			if(colour == 1){
+				currentColour = colourList[0]
+			} else if (colour == 2){
+				currentColour = colourList[1]
+			} else if (colour == 3){
+				currentColour = colourList[2]
+			} else if (colour == 4){
+				currentColour = colourList[3]
+			} else if (colour == 5){
+				currentColour = colourList[4]
+			} else if (colour == 6){
+				currentColour = colourList[5]
+			} else if (colour == 7){
+				currentColour = colourList[6]
+			} else if (colour == 8){
+				currentColour = colourList[7]
+			}
+			boxColour = currentColour
+			box.style.backgroundColor = boxColour
+		})
+
+		document.getElementById("8").addEventListener("click", function(){
+			box = document.getElementById("8")
+  			var currentColour
+  			colour = Math.floor(Math.random() * 8) + 1
+			if(colour == 1){
+				currentColour = colourList[0]
+			} else if (colour == 2){
+				currentColour = colourList[1]
+			} else if (colour == 3){
+				currentColour = colourList[2]
+			} else if (colour == 4){
+				currentColour = colourList[3]
+			} else if (colour == 5){
+				currentColour = colourList[4]
+			} else if (colour == 6){
+				currentColour = colourList[5]
+			} else if (colour == 7){
+				currentColour = colourList[6]
+			} else if (colour == 8){
+				currentColour = colourList[7]
+			}
+			boxColour = currentColour
+			box.style.backgroundColor = boxColour
+		})
+
+		document.getElementById("9").addEventListener("click", function(){
+			box = document.getElementById("9")
+  			var currentColour
+  			colour = Math.floor(Math.random() * 8) + 1
+			if(colour == 1){
+				currentColour = colourList[0]
+			} else if (colour == 2){
+				currentColour = colourList[1]
+			} else if (colour == 3){
+				currentColour = colourList[2]
+			} else if (colour == 4){
+				currentColour = colourList[3]
+			} else if (colour == 5){
+				currentColour = colourList[4]
+			} else if (colour == 6){
+				currentColour = colourList[5]
+			} else if (colour == 7){
+				currentColour = colourList[6]
+			} else if (colour == 8){
+				currentColour = colourList[7]
+			}
+			boxColour = currentColour
+			box.style.backgroundColor = boxColour
+		})
+
+		document.getElementById("10").addEventListener("click", function(){
+			box = document.getElementById("10")
+  			var currentColour
+  			colour = Math.floor(Math.random() * 8) + 1
+			if(colour == 1){
+				currentColour = colourList[0]
+			} else if (colour == 2){
+				currentColour = colourList[1]
+			} else if (colour == 3){
+				currentColour = colourList[2]
+			} else if (colour == 4){
+				currentColour = colourList[3]
+			} else if (colour == 5){
+				currentColour = colourList[4]
+			} else if (colour == 6){
+				currentColour = colourList[5]
+			} else if (colour == 7){
+				currentColour = colourList[6]
+			} else if (colour == 8){
+				currentColour = colourList[7]
+			}
+			boxColour = currentColour
+			box.style.backgroundColor = boxColour
+		})
+
+		document.getElementById("11").addEventListener("click", function(){
+			box = document.getElementById("11")
+  			var currentColour
+  			colour = Math.floor(Math.random() * 8) + 1
+			if(colour == 1){
+				currentColour = colourList[0]
+			} else if (colour == 2){
+				currentColour = colourList[1]
+			} else if (colour == 3){
+				currentColour = colourList[2]
+			} else if (colour == 4){
+				currentColour = colourList[3]
+			} else if (colour == 5){
+				currentColour = colourList[4]
+			} else if (colour == 6){
+				currentColour = colourList[5]
+			} else if (colour == 7){
+				currentColour = colourList[6]
+			} else if (colour == 8){
+				currentColour = colourList[7]
+			}
+			boxColour = currentColour
+			box.style.backgroundColor = boxColour
+		})
+
+		document.getElementById("12").addEventListener("click", function(){
+			box = document.getElementById("12")
+  			var currentColour
+  			colour = Math.floor(Math.random() * 8) + 1
+			if(colour == 1){
+				currentColour = colourList[0]
+			} else if (colour == 2){
+				currentColour = colourList[1]
+			} else if (colour == 3){
+				currentColour = colourList[2]
+			} else if (colour == 4){
+				currentColour = colourList[3]
+			} else if (colour == 5){
+				currentColour = colourList[4]
+			} else if (colour == 6){
+				currentColour = colourList[5]
+			} else if (colour == 7){
+				currentColour = colourList[6]
+			} else if (colour == 8){
+				currentColour = colourList[7]
+			}
+			boxColour = currentColour
+			box.style.backgroundColor = boxColour
+		})
+
+		document.getElementById("13").addEventListener("click", function(){
+			box = document.getElementById("13")
+  			var currentColour
+  			colour = Math.floor(Math.random() * 8) + 1
+			if(colour == 1){
+				currentColour = colourList[0]
+			} else if (colour == 2){
+				currentColour = colourList[1]
+			} else if (colour == 3){
+				currentColour = colourList[2]
+			} else if (colour == 4){
+				currentColour = colourList[3]
+			} else if (colour == 5){
+				currentColour = colourList[4]
+			} else if (colour == 6){
+				currentColour = colourList[5]
+			} else if (colour == 7){
+				currentColour = colourList[6]
+			} else if (colour == 8){
+				currentColour = colourList[7]
+			}
+			boxColour = currentColour
+			box.style.backgroundColor = boxColour
+		})
+
+		document.getElementById("14").addEventListener("click", function(){
+			box = document.getElementById("14")
+  			var currentColour
+  			colour = Math.floor(Math.random() * 8) + 1
+			if(colour == 1){
+				currentColour = colourList[0]
+			} else if (colour == 2){
+				currentColour = colourList[1]
+			} else if (colour == 3){
+				currentColour = colourList[2]
+			} else if (colour == 4){
+				currentColour = colourList[3]
+			} else if (colour == 5){
+				currentColour = colourList[4]
+			} else if (colour == 6){
+				currentColour = colourList[5]
+			} else if (colour == 7){
+				currentColour = colourList[6]
+			} else if (colour == 8){
+				currentColour = colourList[7]
+			}
+			boxColour = currentColour
+			box.style.backgroundColor = boxColour
+		})
+
+		document.getElementById("15").addEventListener("click", function(){
+			box = document.getElementById("15")
+  			var currentColour
+  			colour = Math.floor(Math.random() * 8) + 1
+			if(colour == 1){
+				currentColour = colourList[0]
+			} else if (colour == 2){
+				currentColour = colourList[1]
+			} else if (colour == 3){
+				currentColour = colourList[2]
+			} else if (colour == 4){
+				currentColour = colourList[3]
+			} else if (colour == 5){
+				currentColour = colourList[4]
+			} else if (colour == 6){
+				currentColour = colourList[5]
+			} else if (colour == 7){
+				currentColour = colourList[6]
+			} else if (colour == 8){
+				currentColour = colourList[7]
+			}
+			boxColour = currentColour
+			box.style.backgroundColor = boxColour
+		})
+
+		document.getElementById("16").addEventListener("click", function(){
+			box = document.getElementById("16")
+  			var currentColour
+  			colour = Math.floor(Math.random() * 8) + 1
+			if(colour == 1){
+				currentColour = colourList[0]
+			} else if (colour == 2){
+				currentColour = colourList[1]
+			} else if (colour == 3){
+				currentColour = colourList[2]
+			} else if (colour == 4){
+				currentColour = colourList[3]
+			} else if (colour == 5){
+				currentColour = colourList[4]
+			} else if (colour == 6){
+				currentColour = colourList[5]
+			} else if (colour == 7){
+				currentColour = colourList[6]
+			} else if (colour == 8){
+				currentColour = colourList[7]
+			}
+			boxColour = currentColour
+			box.style.backgroundColor = boxColour
+		})
+
+		document.getElementById("17").addEventListener("click", function(){
+			box = document.getElementById("17")
+  			var currentColour
+  			colour = Math.floor(Math.random() * 8) + 1
+			if(colour == 1){
+				currentColour = colourList[0]
+			} else if (colour == 2){
+				currentColour = colourList[1]
+			} else if (colour == 3){
+				currentColour = colourList[2]
+			} else if (colour == 4){
+				currentColour = colourList[3]
+			} else if (colour == 5){
+				currentColour = colourList[4]
+			} else if (colour == 6){
+				currentColour = colourList[5]
+			} else if (colour == 7){
+				currentColour = colourList[6]
+			} else if (colour == 8){
+				currentColour = colourList[7]
+			}
+			boxColour = currentColour
+			box.style.backgroundColor = boxColour
+		})
+
+		document.getElementById("18").addEventListener("click", function(){
+			box = document.getElementById("18")
+  			var currentColour
+  			colour = Math.floor(Math.random() * 8) + 1
+			if(colour == 1){
+				currentColour = colourList[0]
+			} else if (colour == 2){
+				currentColour = colourList[1]
+			} else if (colour == 3){
+				currentColour = colourList[2]
+			} else if (colour == 4){
+				currentColour = colourList[3]
+			} else if (colour == 5){
+				currentColour = colourList[4]
+			} else if (colour == 6){
+				currentColour = colourList[5]
+			} else if (colour == 7){
+				currentColour = colourList[6]
+			} else if (colour == 8){
+				currentColour = colourList[7]
+			}
+			boxColour = currentColour
+			box.style.backgroundColor = boxColour
+		})
+
+		document.getElementById("19").addEventListener("click", function(){
+			box = document.getElementById("19")
+  			var currentColour
+  			colour = Math.floor(Math.random() * 8) + 1
+			if(colour == 1){
+				currentColour = colourList[0]
+			} else if (colour == 2){
+				currentColour = colourList[1]
+			} else if (colour == 3){
+				currentColour = colourList[2]
+			} else if (colour == 4){
+				currentColour = colourList[3]
+			} else if (colour == 5){
+				currentColour = colourList[4]
+			} else if (colour == 6){
+				currentColour = colourList[5]
+			} else if (colour == 7){
+				currentColour = colourList[6]
+			} else if (colour == 8){
+				currentColour = colourList[7]
+			}
+			boxColour = currentColour
+			box.style.backgroundColor = boxColour
+		})
+
+		document.getElementById("20").addEventListener("click", function(){
+			box = document.getElementById("20")
+  			var currentColour
+  			colour = Math.floor(Math.random() * 8) + 1
+			if(colour == 1){
+				currentColour = colourList[0]
+			} else if (colour == 2){
+				currentColour = colourList[1]
+			} else if (colour == 3){
+				currentColour = colourList[2]
+			} else if (colour == 4){
+				currentColour = colourList[3]
+			} else if (colour == 5){
+				currentColour = colourList[4]
+			} else if (colour == 6){
+				currentColour = colourList[5]
+			} else if (colour == 7){
+				currentColour = colourList[6]
+			} else if (colour == 8){
+				currentColour = colourList[7]
+			}
+			boxColour = currentColour
+			box.style.backgroundColor = boxColour
+		})
+
+		document.getElementById("21").addEventListener("click", function(){
+			box = document.getElementById("21")
+  			var currentColour
+  			colour = Math.floor(Math.random() * 8) + 1
+			if(colour == 1){
+				currentColour = colourList[0]
+			} else if (colour == 2){
+				currentColour = colourList[1]
+			} else if (colour == 3){
+				currentColour = colourList[2]
+			} else if (colour == 4){
+				currentColour = colourList[3]
+			} else if (colour == 5){
+				currentColour = colourList[4]
+			} else if (colour == 6){
+				currentColour = colourList[5]
+			} else if (colour == 7){
+				currentColour = colourList[6]
+			} else if (colour == 8){
+				currentColour = colourList[7]
+			}
+			boxColour = currentColour
+			box.style.backgroundColor = boxColour
+		})
+
+		document.getElementById("22").addEventListener("click", function(){
+			box = document.getElementById("22")
+  			var currentColour
+  			colour = Math.floor(Math.random() * 8) + 1
+			if(colour == 1){
+				currentColour = colourList[0]
+			} else if (colour == 2){
+				currentColour = colourList[1]
+			} else if (colour == 3){
+				currentColour = colourList[2]
+			} else if (colour == 4){
+				currentColour = colourList[3]
+			} else if (colour == 5){
+				currentColour = colourList[4]
+			} else if (colour == 6){
+				currentColour = colourList[5]
+			} else if (colour == 7){
+				currentColour = colourList[6]
+			} else if (colour == 8){
+				currentColour = colourList[7]
+			}
+			boxColour = currentColour
+			box.style.backgroundColor = boxColour
+		})
+
+		document.getElementById("23").addEventListener("click", function(){
+			box = document.getElementById("23")
+  			var currentColour
+  			colour = Math.floor(Math.random() * 8) + 1
+			if(colour == 1){
+				currentColour = colourList[0]
+			} else if (colour == 2){
+				currentColour = colourList[1]
+			} else if (colour == 3){
+				currentColour = colourList[2]
+			} else if (colour == 4){
+				currentColour = colourList[3]
+			} else if (colour == 5){
+				currentColour = colourList[4]
+			} else if (colour == 6){
+				currentColour = colourList[5]
+			} else if (colour == 7){
+				currentColour = colourList[6]
+			} else if (colour == 8){
+				currentColour = colourList[7]
+			}
+			boxColour = currentColour
+			box.style.backgroundColor = boxColour
+		})
+
+		document.getElementById("24").addEventListener("click", function(){
+			box = document.getElementById("24")
+  			var currentColour
+  			colour = Math.floor(Math.random() * 8) + 1
+			if(colour == 1){
+				currentColour = colourList[0]
+			} else if (colour == 2){
+				currentColour = colourList[1]
+			} else if (colour == 3){
+				currentColour = colourList[2]
+			} else if (colour == 4){
+				currentColour = colourList[3]
+			} else if (colour == 5){
+				currentColour = colourList[4]
+			} else if (colour == 6){
+				currentColour = colourList[5]
+			} else if (colour == 7){
+				currentColour = colourList[6]
+			} else if (colour == 8){
+				currentColour = colourList[7]
+			}
+			boxColour = currentColour
+			box.style.backgroundColor = boxColour
+		})
 
 	</script>
 </html>
