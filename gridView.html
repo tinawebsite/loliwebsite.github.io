@@ -17,16 +17,14 @@
 		height:50px;
 	  	font-size: 30px;
 	  	text-align: center;
-        transition-property: background;
-        transition-duration: 3s;
+        transition-property: background, transform;
+        transition-duration: 3s, 5s;
         transition-timing-function: linear;
     }
-    .boxes:active{
+    .boxes:hover{
         background: var(--box9Colour);
+    	transform: rotate(80deg);
     }
-    div:hover{
-        transform: rotate(80deg)
-	}
 
 
 }
