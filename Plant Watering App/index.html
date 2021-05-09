@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>
+		Plant Watering
+	</title>
+	<link rel="stylesheet" href="styling.css">
+</head>
+
+<body class="page"> 
+	<div class="header"></div>
+
+	<h1>Plant Watering Records</h1>
+		
+	<div class="table" style="visibility:hidden;" id="wholePlantTable">
+		<br><br>
+		<table >
+			<tr>
+	   			<th>Water</th>
+	   			<th>Plant Name</th>
+	   			<th>Last Watered</th>
+	   			<th></th>
+	   		</tr>
+	   		<tbody id="tbody">
+	   		</tbody>
+		</table>
+	
+		<br>
+		<button id="resetValuesButton" class="button">RESET</button>
+		
+	</div>
+	<br>
+	
+	<div id="allCollapsibles">
+		<!-- INSTRUCTIONS -->
+		<button class="collapsible">Instructions for the page</button>
+		<div class="content">
+	  		<ul>
+	  			<li>Your registered plants will appear in the table above.</li>
+	  			<li>Click the dropdown labeled <b>"add a new plant"</b> to manage the plants in your collection.</li>
+	  			<li>Click the water droplet beside the plants to set the 'Last Watered' date to today.</li>
+	  			<li>
+	  			</li>
+	  		</ul>
+		</div>
+
+		
+		<!-- ADD NEW PLANT -->
+		<button class="collapsible">Add a new plant</button>
+		<div class="content">
+			<form onsubmit="return false" style="padding:15px;">
+				<p><u>Use the following form to register a new plant: </u></p>
+				<input type="text" name="plantNameInput" placeholder="Enter the plant name" id="plantNameInput" class="textInput">
+				<br>
+				Last watered: <input type="date" id="lastWateredDateInput" class="textInput">
+				<br>
+				<input type="submit" value="Submit" id="addSubmitButton" class="button" onclick="addNewPlantClickSubmit();">
+			</form>
+
+		</div>
+	</div>	
+
+	<script src="clearAllPlants.js"></script>
+	<script src="updateTable.js"></script>
+	<script src="addNewPlant.js"></script>
+	<script src="waterExistingPlant.js"></script>
+	<script src="deletePlants.js"></script>
+	<script src="dropdowns.js"></script>
+
+
+</body>
+</html>

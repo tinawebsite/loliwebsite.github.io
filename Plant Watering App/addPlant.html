@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>
+		Manage Plants
+	</title>
+	<link rel="stylesheet" href="styling.css">
+</head>
+<body class="page">
+
+	<a href="index.html" class="linkButtons" target = "_self"> Home </a> 
+	<hr>
+
+	<h4>Add a new plant:</h4>
+
+	<form onsubmit="return false">
+		<input type="text" name="plantNameInput" placeholder="Enter the plant name" id="plantNameInput" class="textInput">
+		<br>
+		Last watered: <input type="date" id="lastWateredDateInput" class="textInput" value="2021-04-05">
+		<br>
+		<input type="submit" value="Submit" id="submitButton" class="submitButton">
+	</form>
+
+	<br><br>
+
+	<table style="visibility:hidden" id="wholePlantTable">
+		<tr>
+    		<th>Plant Name</th>
+    		<th>Last Watered</th>
+    	</tr>
+    	<tbody id="tbody" class="table">   		
+    	</tbody>
+	</table>
+
+	<script>
+		var allPlantsDict = {}
+		localStorage.setItem("allPlants", JSON.stringify(allPlantsDict));
+	</script>
+	<script src="addNewPlant.js"></script>
+
+
+</body>
+</html>
