@@ -1,11 +1,16 @@
 var allPlantsDict = JSON.parse(localStorage.getItem("allPlants")) //format// {plantName:lastWateredDate}
 
+
 var tableBody = document.getElementById("tbody");
 var submitButton = document.getElementById("addSubmitButton");
 var wholeTable = document.getElementById("wholePlantTable");
 var dateInput = document.getElementById("lastWateredDateInput");
 
 var currentDate = new Date();
+
+if (allPlantsDict == {}){
+	updateValues('example plant', currentDate)
+}
 
 dateInput.value = returnOnlyDateFormat2(currentDate);
 if(Object.keys(allPlantsDict).length === 0){
