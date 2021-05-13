@@ -1,16 +1,15 @@
-var allPlantsDict = JSON.parse(localStorage.getItem("allPlants")) //format// {plantName:lastWateredDate}
-console.log(allPlantsDict);
-
 var tableBody = document.getElementById("tbody");
 var submitButton = document.getElementById("addSubmitButton");
 var wholeTable = document.getElementById("wholePlantTable");
 var dateInput = document.getElementById("lastWateredDateInput");
-
+var allPlantsDict = {};
 var currentDate = new Date();
 
-if ((allPlantsDict == null) == true){
+var r = confirm("Please click 'OK' if this is your first time visiting the page on this device and 'Cancel' if it is not.");
+if(r == true){
 	updateValues('example plant', currentDate);
-	console.log(allPlantsDict);
+} else {	
+	var allPlantsDict = JSON.parse(localStorage.getItem("allPlants")) //format// {plantName:lastWateredDate}
 }
 
 dateInput.value = returnOnlyDateFormat2(currentDate);
