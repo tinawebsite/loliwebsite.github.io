@@ -8,7 +8,7 @@ var dateInput = document.getElementById("lastWateredDateInput");
 
 var currentDate = new Date();
 
-if (allPlantsDict == null){
+if ((allPlantsDict == null) == true){
 	updateValues('example plant', currentDate);
 	console.log(allPlantsDict);
 }
