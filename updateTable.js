@@ -9,7 +9,7 @@ var r = confirm("Please click 'OK' if this is your first time visiting the page 
 if(r == true){
 	updateValues('example plant', currentDate);
 } else {	
-	var allPlantsDict = JSON.parse(localStorage.getItem("allPlants")) //format// {plantName:lastWateredDate}
+	var allPlantsDict = JSON.parse(localStorage.getItem("allPlants"));
 }
 
 dateInput.value = returnOnlyDateFormat2(currentDate);
